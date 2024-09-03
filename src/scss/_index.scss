@@ -1,0 +1,108 @@
+.about-me {
+  .left-section {
+    background: linear-gradient(270deg, #e8eceb, #d0d3d3);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 48px;
+    margin-bottom: 35px;
+
+    .profile-image {
+      img {
+       border-radius: 85%;
+        border: 5px solid #dbd8d8;
+      }
+    }
+
+    .personal-info {
+      h4 {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 5px;
+
+        a {
+          color: #007bff;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .skills {
+      h5 {
+        font-size: 1.5rem;
+        color: #007bff;
+        margin-bottom: 15px;
+        font-weight: bold;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+        display: inline-block;
+      }
+
+      .skill-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px; // Spacing between skill items
+
+        .skill-item {
+          background: #ffffff;
+          border: 1px solid #dee2e6;
+          border-radius: 8px;
+          padding: 10px 15px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          font-size: 1rem;
+          font-weight: bold;
+          color: #333;
+          text-align: center;
+          flex: 1 1 150px; // Flex basis for responsiveness
+          transition: background 0.3s, box-shadow 0.3s;
+
+          &:hover {
+            background: #007bff;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+    }
+  }
+
+  .right-section {
+    padding: 20px;
+
+    .about-me-content {
+      h2 {
+        margin-bottom: 20px;
+        font-size: 1.75rem;
+        color: #007bff;
+        border-bottom: 2px solid transparent; // Transparent initial border
+        transition: border-color 0.3s ease;
+        
+        &:hover {
+          border-bottom: 2px solid #007bff; // Blue line on hover
+        }
+      }
+
+      p {
+        margin-bottom: 20px;
+        line-height: 1.5;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+.contact-button {
+  background: linear-gradient(270deg, #08d88d, #0eb5a3);
+  border-color: transparent;
+  padding: 11px 12px;
+  font-size: 1.2rem;
+ 
+ 
+   
+
+
+  &:hover {
+    background: linear-gradient(270deg, #0eb5a3, #08d88d);
+  }
+}
