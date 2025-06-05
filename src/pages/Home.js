@@ -5,8 +5,10 @@ import MyProgress from '../sections/MyProgress';
 import Projects from '../sections/Projects';
 import FeedBack from '../sections/FeedBack';
 import Expertise from '../sections/Expertise';
-import  ContactsHeading from '../sections/ContactHeading.js';
+
 import Contacts from '../sections/Contacts';
+import Whatsappbutton from '../sections/WhatsappButton'
+
 
 
 
@@ -22,8 +24,9 @@ const Home = () => {
       <Projects />
       <FeedBack/>
       <Expertise />
-      <ContactsHeading/>
+     
       <Contacts />
+      <Whatsappbutton/>
     
     </div>
   );

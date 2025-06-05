@@ -1,109 +1,107 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Card, notification } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWhatsapp, faFacebook, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
-import useFirestore from '../hooks/useFirestore';
-import '../scss/_contact.scss';
+import { faLinkedin, faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import emailjs from '@emailjs/browser';  // <-- import emailjs
 
 const ContactForm = () => {
-  const { addMessage } = useFirestore();
-  const [loading, setLoading] = useState(false);  // Add loading state
+  const [loading, setLoading] = useState(false);
 
-  const onFinish = async (values) => {
-    setLoading(true);  // Start loading
+  const onFinish = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+
     try {
-      const { email, message } = values;
-      await addMessage({ email, message });
-      notification.success({
-        message: 'Message Sent',
-        description: 'Your message has been sent. I will contact you soon.',
-      });
+      // Send email using EmailJS
+      await emailjs.sendForm(
+        'service_lqbbxck',    // replace with your EmailJS Service ID
+        'template_nfmpk4u',   // replace with your EmailJS Template ID
+        event.target,
+        'V1Hvi4cubJIA5VZyV'        // replace with your EmailJS User ID (public key)
+      );
+
+      alert('Your message has been sent. We will contact you soon.');
+      event.target.reset();
     } catch (error) {
-      notification.error({
-        message: 'Message Not Sent',
-        description: 'There was an error sending your message. Please try again.',
-      });
+      console.error('EmailJS error:', error);
+      alert('There was an error sending your message. Please try again.');
     } finally {
-      setLoading(false);  // Stop loading
+      setLoading(false);
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
   return (
-    <div className="contact-form-container">
-      <Card className="contact-card">
-        <div className="info-section">
-          <h2>Get in Touch</h2>
-          <p><FontAwesomeIcon icon={faPhone} /> +92 3096829046</p>
-          <p><FontAwesomeIcon icon={faEnvelope} /> muteebramzan3@gmail.com</p>
-          <div className="social-icons">
-            <a href="https://wa.me/923096829046" target='_blank' rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faWhatsapp} />
-            </a>
-            <a href="https://www.facebook.com/ladlamian.muteeb.1" target='_blank' rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faFacebook} />
-            </a>
-            <a href="https://github.com/miangmuteeb" target='_blank' rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-            <a href="https://www.linkedin.com/in/m-muteeb-ramzan-99b489283/" target='_blank' rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faLinkedin} />
-            </a>
+    <div 
+      id="contact"
+      className="container-fluid min-vh-100 py-5" 
+      style={{ background: '#040711', color: '#f1f1f1' }}
+    >
+      <div className="text-center mb-5 animate__animated animate__fadeInDown">
+        <h1 className="display-4 fw-bold text-white">Contact Us</h1>
+        <p className="lead text-light">We would love to hear from you!</p>
+      </div>
+
+      <div
+        className="row mx-auto shadow-lg rounded-4 overflow-hidden animate__animated animate__fadeInUp"
+        style={{
+          maxWidth: '1000px',
+          background: 'rgba(255, 255, 255, 0.07)',
+          backdropFilter: 'blur(18px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+        }}
+      >
+        {/* Contact Info */}
+        <div className="col-md-5 p-4 text-white d-flex flex-column justify-content-between" style={{ backgroundColor: '#1f2a40' }}>
+          <div>
+            <h4 className="fw-bold mb-4 text-white">Get in Touch</h4>
+            <p><FontAwesomeIcon icon={faPhone} className="me-2" /> +92 3096829046</p>
+            <p><FontAwesomeIcon icon={faEnvelope} className="me-2 text-white" />codenexusltd@gmail.com</p>
+
+            {/* Social Icons */}
+            <div className="mt-4 d-flex gap-4 fs-4">
+              <a href="https://www.linkedin.com/company/code-nexus-ltd/?viewAsMember=true" target="_blank" rel="noopener noreferrer" style={{ color: '#0A66C2' }} className="hover-effect">
+                <FontAwesomeIcon icon={faLinkedin} />
+              </a>
+              <a href="https://www.facebook.com/profile.php?id=61573819956075" target="_blank" rel="noopener noreferrer" style={{ color: '#1877F2' }} className="hover-effect">
+                <FontAwesomeIcon icon={faFacebook} />
+              </a>
+              <a href="https://wa.me/923096829046" target="_blank" rel="noopener noreferrer" style={{ color: '#25D366' }} className="hover-effect">
+                <FontAwesomeIcon icon={faWhatsapp} />
+              </a>
+            </div>
           </div>
         </div>
-        <div className="form-section">
-          <h2>Send Me a Message</h2>
-          <Form
-            className='mt-4'
-            name="contact"
-            layout="vertical"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-          >
-            <Form.Item
-              label="Your Name"
-              name="name"
-              rules={[{ required: true, message: 'Please input your name!' }]}
-            >
-              <Input />
-            </Form.Item>
 
-            <Form.Item
-              label="Your Email"
-              name="email"
-              rules={[{ required: true, message: 'Please input your email!' }]}
-            >
-              <Input />
-            </Form.Item>
+        {/* Contact Form */}
+        <div className="col-md-7 p-5 text-white">
+          <h4 className="fw-bold mb-4 text-white">Send Us a Message</h4>
+          <form onSubmit={onFinish}>
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label text-light">Your Name</label>
+              <input type="text" name="name" id="name" className="form-control bg-white bg-opacity-25 text-white border-0" required />
+            </div>
 
-            <Form.Item
-              label="Subject"
-              name="subject"
-              rules={[{ required: true, message: 'Please input the subject!' }]}
-            >
-              <Input />
-            </Form.Item>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label text-light">Your Email</label>
+              <input type="email" name="email" id="email" className="form-control bg-white bg-opacity-25 text-white border-0" required />
+            </div>
 
-            <Form.Item
-              label="Message"
-              name="message"
-              rules={[{ required: true, message: 'Please input your message!' }]}
-            >
-              <Input.TextArea rows={4} />
-            </Form.Item>
+            <div className="mb-3">
+              <label htmlFor="subject" className="form-label text-light">Subject</label>
+              <input type="text" name="subject" id="subject" className="form-control bg-white bg-opacity-25 text-white border-0" required />
+            </div>
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit" loading={loading}>
-                {loading ? 'Sending...' : 'Send Message'}
-              </Button>
-            </Form.Item>
-          </Form>
+            <div className="mb-4">
+              <label htmlFor="message" className="form-label text-light">Message</label>
+              <textarea name="message" id="message" rows="4" className="form-control bg-white bg-opacity-25 text-white border-0" required></textarea>
+            </div>
+
+            <button type="submit" className="btn btn-primary w-100 py-2 fw-bold" disabled={loading}>
+              {loading ? 'Sending...' : 'Send Message'}
+            </button>
+          </form>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };

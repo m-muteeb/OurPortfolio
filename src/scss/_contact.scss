@@ -17,7 +17,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(31, 31, 238, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 0;
   }
 
@@ -78,7 +78,7 @@
       }
 
       .ant-btn-primary {
-        background: linear-gradient(270deg, #08d88d, #0eb5a3);
+        background: linear-gradient(270deg, #41c9ff, #0eb5a3);
         border-color: transparent;
         transition: background 0.3s ease;
 
