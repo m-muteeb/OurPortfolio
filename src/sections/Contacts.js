@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import emailjs from '@emailjs/browser';  // <-- import emailjs
+import emailjs from '@emailjs/browser';  
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);

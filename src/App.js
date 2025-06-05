@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css'; // Import your main CSS file
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { FirebaseProvider } from './firebase/FirebaseContext';
 
