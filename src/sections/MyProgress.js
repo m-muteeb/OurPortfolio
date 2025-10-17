@@ -1,25 +1,29 @@
 import React, { useEffect } from 'react';
-import '../scss/_progress.scss';
 import { Col, Row } from 'antd';
-import {
-  CheckCircleOutlined,
-  CalendarOutlined,
-  TrophyOutlined,
-} from '@ant-design/icons';
+import { CheckCircleOutlined, TeamOutlined, TrophyOutlined } from '@ant-design/icons';
+
+// Import SCSS for this component
+import '../scss/_progress.scss';
+
+// Import images
 import backgroundImage from '../assets/images/progress.webp';
 import badge1 from '../assets/images/Achievements Section.png';
+import eduLogo from '../assets/images/edunexus.png';
+import healthLogo from '../assets/images/health (2).png';
 
 const Progress = () => {
+  // The counter animation effect remains the same
   useEffect(() => {
-    const counters = document.querySelectorAll('.counter');
+    const counters = document.querySelectorAll('.counter-value');
     counters.forEach(counter => {
-      const updateCount = () => {
-        const target = +counter.getAttribute('data-target');
-        const count = +counter.innerText;
-        const increment = target / 100;
+      const target = +counter.getAttribute('data-target');
+      let count = 0;
+      const increment = target / 100;
 
+      const updateCount = () => {
         if (count < target) {
-          counter.innerText = Math.ceil(count + increment);
+          count += increment;
+          counter.innerText = Math.ceil(count);
           setTimeout(updateCount, 20);
         } else {
           counter.innerText = target;
@@ -29,126 +33,76 @@ const Progress = () => {
     });
   }, []);
 
+  const statsData = [
+    { icon: <CheckCircleOutlined />, target: 14, label: 'Projects Delivered' },
+    { icon: <TeamOutlined />, target: 10, label: 'Satisfied Clients' },
+    { icon: <TrophyOutlined />, target: 26, label: 'Strategic Consultations' },
+  ];
+
+  const venturesData = [
+    { logo: eduLogo, title: 'EduNexus', description: 'Innovating education through technology and smart solutions.' },
+    { logo: healthLogo, title: 'HealthNexus', description: 'Revolutionizing healthcare with data-driven applications.' },
+  ];
+
   return (
     <div
-      className="progress-wrapper"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        padding: '100px 20px 80px',
-        color: '#fff',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
+      className="corporate-progress-section"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      {/* Overlay */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.9)',
-          zIndex: 1,
-        }}
-      />
+      <div className="section-overlay"></div>
+      <div className="container">
+        <div className="section-header">
+          <h2 className="section-title">Our Journey of Impact & Innovation</h2>
+          <p className="section-subtitle">
+            We transform vision into reality through dedication, expertise, and measurable results. 
+            Our growth is a testament to the trust our partners place in us.
+          </p>
+        </div>
 
-      {/* Animated Circles */}
-      <div className="animated-circles" style={{ position: 'absolute', zIndex: 2 }}>
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={i}
-            className="floating-circle"
-            style={{
-              position: 'absolute',
-              width: '20px',
-              height: '20px',
-              borderRadius: '50%',
-              background: 'rgba(29, 184, 228, 0.3)',
-              animation: `float ${5 + i}s ease-in-out infinite`,
-              top: `${Math.random() * 80 + 10}%`,
-              left: `${Math.random() * 90 + 5}%`,
-            }}
-          />
-        ))}
-      </div>
+        <Row gutter={[48, 48]} align="top">
+          {/* Left Column: Stats and Narrative */}
+          <Col xs={24} lg={12} className="narrative-column">
+            <h3 className="column-title">By The Numbers</h3>
+            <div className="stats-container">
+              {statsData.map((stat, index) => (
+                <div className="stat-item" key={index}>
+                  <div className="stat-icon">{stat.icon}</div>
+                  <div className="stat-content">
+                    <span className="counter-value" data-target={stat.target}>0</span>
+                    <p className="stat-label">{stat.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="narrative-text">
+              Each number represents a story of a challenge solved, a business empowered, and a partnership forged. We are proud of our progress but remain focused on the future, constantly pushing boundaries to deliver exceptional value and drive success for our clients.
+            </p>
+          </Col>
 
-      {/* Glass Card */}
-      <div
-        className="glass-card"
-        style={{
-          background: 'rgba(255, 255, 255, 0.05)',
-          borderRadius: '25px',
-          backdropFilter: 'blur(12px)',
-          boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
-          padding: '60px 30px',
-          marginBottom: '40px',
-          maxWidth: '1000px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          position: 'relative',
-          zIndex: 3,
-        }}
-      >
-        <Row justify="center" gutter={[32, 32]} align="middle">
-          <Col xs={24} sm={8} className="text-center">
-            <CheckCircleOutlined style={{ fontSize: '3rem', color: '#1db8e4' }} />
-            <h2 className="counter" data-target="14" style={{ fontSize: '2rem', marginTop: '10px' }}>0</h2>
-            <p style={{ color: '#e0f7fa', fontWeight: 'bold' }}>PROJECTS COMPLETED</p>
-          </Col>
-          <Col xs={24} sm={8} className="text-center">
-            <CalendarOutlined style={{ fontSize: '3rem', color: '#1db8e4' }} />
-            <h2 className="counter" data-target="10" style={{ fontSize: '2rem', marginTop: '10px' }}>0</h2>
-            <p style={{ color: '#e0f7fa', fontWeight: 'bold' }}>CLIENTS</p>
-          </Col>
-          <Col xs={24} sm={8} className="text-center">
-            <TrophyOutlined style={{ fontSize: '3rem', color: '#1db8e4' }} />
-            <h2 className="counter" data-target="26" style={{ fontSize: '2rem', marginTop: '10px' }}>0</h2>
-            <p style={{ color: '#e0f7fa', fontWeight: 'bold' }}>CONSULTATIONS</p>
+          {/* Right Column: Achievements and Ventures */}
+          <Col xs={24} lg={12} className="proof-column">
+            <div className="achievements-container">
+              <h3 className="column-title">Awards & Recognition</h3>
+              <img src={badge1} alt="Achievement Badge" className="achievement-badge" />
+            </div>
+
+            <div className="ventures-container">
+              <h3 className="column-title">Our Flagship Ventures</h3>
+              <Row gutter={[24, 24]}>
+                {venturesData.map((venture, index) => (
+                  <Col xs={24} md={12} key={index}>
+                    <div className="venture-card">
+                      <img src={venture.logo} alt={`${venture.title} Logo`} className="venture-logo" />
+                      <h4 className="venture-title">{venture.title}</h4>
+                      <p className="venture-description">{venture.description}</p>
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            </div>
           </Col>
         </Row>
       </div>
-
-      {/* Line Separator */}
-      <div style={{
-        height: '2px',
-        background: 'linear-gradient(to right, #1db8e4, #bbcd1d)',
-        margin: '30px auto 10px',
-        width: '80%',
-        zIndex: 3,
-        position: 'relative',
-      }} />
-
-      {/* Achievements Title */}
-      
-      {/* Badges Section */}
-      <Row justify="center" gutter={[24, 24]} style={{ marginTop: '40px', zIndex: 3, position: 'relative' }}>
-        {[badge1].map((badge, index) => (
-          <Col xs={22} sm={18} md={14} lg={10} key={index} className="text-center">
-            <img
-              src={badge}
-              alt={`Badge ${index + 1}`}
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-                borderRadius: '18px',
-                filter: 'drop-shadow(0 0 20px rgba(29, 184, 228, 0.8))',
-                transition: 'transform 0.4s ease-in-out',
-                transform: 'scale(1.05)',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.15)')}
-              onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1.05)')}
-            />
-          </Col>
-        ))}
-      </Row>
-
-      {/* Floating animation style */}
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-15px); }
-        }
-      `}</style>
     </div>
   );
 };

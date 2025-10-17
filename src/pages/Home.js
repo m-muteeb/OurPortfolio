@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/Header';
+
 import Hero from '../sections/Hero';
 import About from '../sections/About';
 import MyProgress from '../sections/MyProgress';
@@ -9,7 +9,8 @@ import Expertise from '../sections/Expertise';
 
 import Contacts from '../sections/Contacts';
 import Whatsappbutton from '../sections/WhatsappButton'
-import ChooseUs from '../sections/Choose';
+import Footer from "../sections/Footer"
+
 
 
 
@@ -27,9 +28,9 @@ const Home = () => {
 >
 
 
-      <Header/>
+    
       <Hero />
-      <ChooseUs/>
+     
       </div>
       <About />
       <MyProgress/>
@@ -39,6 +40,7 @@ const Home = () => {
      
       <Contacts />
       <Whatsappbutton/>
+      <Footer/>
     
     </div>
   );
