@@ -134,29 +134,6 @@ const SubmitIdea = () => {
                     <p className="hero-slogan">We don't just take ideas; we forge futures. Partner with us to transform your groundbreaking concept into a market-defining reality.</p>
                     <div className="hero-cta-container" style={{ marginTop: '25px' }}>
                         <a href="#submission-form" className="hero-cta">Launch Your Mission</a>
-                        <a
-                            href="#!" // Non-navigating link
-                            title="Projects will be shown soon here"
-                            style={{
-                                display: 'inline-block',
-                                padding: '12px 28px',
-                                backgroundColor: 'transparent',
-                                color: '#FFFFFF',
-                                border: '2px solid #FFFFFF',
-                                borderRadius: '50px',
-                                textDecoration: 'none',
-                                fontWeight: 'bold',
-                                fontSize: '1rem',
-                                cursor: 'pointer',
-                                marginLeft: '15px',
-                                textAlign: 'center',
-                                transition: 'background-color 0.3s ease'
-                            }}
-                            onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'; }}
-                            onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; }}
-                        >
-                            Wall of Ideas
-                        </a>
                     </div>
                 </div>
             </section>
@@ -208,48 +185,18 @@ const SubmitIdea = () => {
             </section>
             
             {/* Section 4: Submission Form */}
-            <section className="section">
-                <div className="submit-idea-container" id="submission-form">
-                    <div className="form-card-wide">
-                        <div className="form-header">
-                            <h2 className="section-heading">Construct Your Blueprint</h2>
-                            <p className="form-instructions">
-                                This is where your mission begins. Provide a clear, concise, and compelling overview of your vision. Maximum team size is <strong>three</strong> (1 lead + 2 collaborators).
-                            </p>
-                        </div>
-                        <form onSubmit={handleSubmit}>
-                            {/* --- Project Details --- */}
-                            <div className="form-section-title">Project Architecture</div>
-                            <div className="form-group"><label htmlFor="projectCategory">Project Category</label><select id="projectCategory" value={projectCategory} onChange={(e) => setProjectCategory(e.target.value)} required><option value="" disabled>Select a category...</option><option value="SaaS">SaaS</option><option value="FinTech">FinTech</option><option value="AI/ML">AI / Machine Learning</option><option value="E-commerce">E-commerce</option><option value="HealthTech">HealthTech</option><option value="Web3">Web3</option><option value="Other">Other</option></select></div>
-                            <div className="form-group"><label htmlFor="problemStatement">The Problem Space</label><textarea id="problemStatement" placeholder="Define the critical problem you are solving." rows="3" value={problemStatement} onChange={(e) => setProblemStatement(e.target.value)} required></textarea></div>
-                            <div className="form-group"><label htmlFor="projectIdea">The Solution</label><textarea id="projectIdea" placeholder="Detail your innovative solution and its core architecture." rows="6" value={projectIdea} onChange={(e) => setProjectIdea(e.target.value)} required></textarea></div>
-                            <div className="form-group"><label htmlFor="techStack">Anticipated Tech Stack (Optional)</label><input id="techStack" type="text" placeholder="e.g., Next.js, Rust, GraphQL, GCP/AWS" value={techStack} onChange={(e) => setTechStack(e.target.value)} /></div>
+           <section className="section closed-section">
+  <div className="submit-idea-container" id="submission-form">
+    <div className="form-card-wide">
+      <div className="form-header">
+        <p className="closed-text mt-4">
+          The submissions for <strong>IDEA2IMPACT 2025</strong> are now closed.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
-                            {/* --- Team Details --- */}
-                            <div className="form-section-title">Founding Team</div>
-                            <div className="form-group"><label htmlFor="teamLeadName">Team Lead Name</label><input id="teamLeadName" type="text" placeholder="e.g., Ada Lovelace" value={teamLeadName} onChange={(e) => setTeamLeadName(e.target.value)} required /></div>
-                            <div className="form-group"><label htmlFor="teamLeadContact">Team Lead Contact (Email/Phone)</label><input id="teamLeadContact" type="text" placeholder="e.g., ada@newco.io" value={teamLeadContact} onChange={(e) => setTeamLeadContact(e.target.value)} required /></div>
-                            <div className="form-group"><label>Collaborators (Optional, Max 2)</label>
-                                {teamMembers.map((member, index) => (
-                                    <div className="team-member-row" key={index}>
-                                        <div className="team-member-inputs">
-                                            <input type="text" name="name" placeholder={`Collaborator ${index + 1} Name`} value={member.name} onChange={(e) => handleMemberChange(index, e)} />
-                                            <input type="text" name="contact" placeholder={`Collaborator ${index + 1} Contact`} value={member.contact} onChange={(e) => handleMemberChange(index, e)} />
-                                        </div>
-                                        <button type="button" className="btn btn-danger" onClick={() => removeTeamMember(index)}>✕</button>
-                                    </div>
-                                ))}
-                                {teamMembers.length < 2 && (<button type="button" className="btn btn-secondary" onClick={addTeamMember}>+ Add Collaborator</button>)}
-                            </div>
-                            
-                            <div style={{ marginTop: '50px', textAlign: 'center' }}>
-                                <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? 'Transmitting...' : 'Ignite Your Vision'}</button>
-                            </div>
-                        </form>
-                        {feedback.message && (<div className={`message ${feedback.type}`}>{feedback.message}</div>)}
-                    </div>
-                </div>
-            </section>
 
             <Footer />
         </div>

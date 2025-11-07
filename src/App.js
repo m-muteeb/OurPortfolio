@@ -39,45 +39,8 @@ const App = () => {
   return (
     <FirebaseProvider>
       <Router>
-        {/* --------------------- */}
-        {/* Launch Popup Modal */}
-        {/* --------------------- */}
-        <Modal
-          show={showPopup}
-          onHide={handleClose}
-          centered
-          backdrop="static" // Prevent closing on outside click
-          keyboard={false} // Prevent closing with ESC key
-          contentClassName="launch-modal"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title style={{ fontWeight: "600", fontSize: "1.3rem" }}>
-              Idea2Impact
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p style={{ fontSize: "1rem", lineHeight: "1.5" }}>
-              Transform your ideas into real-world impact. Submit your innovative ideas and be part of the change.
-            </p>
-          </Modal.Body>
-          <Modal.Footer>
-            <Link to="/submitidea">
-              <Button
-                variant="primary"
-                onClick={handleClose} // Close modal immediately when clicked
-                style={{
-                  backgroundColor: "#1db8e4",
-                  borderColor: "#1db8e4",
-                  fontWeight: "500",
-                  padding: "8px 20px",
-                  borderRadius: "8px",
-                }}
-              >
-                Submit Your Idea
-              </Button>
-            </Link>
-          </Modal.Footer>
-        </Modal>
+       
+        
 
         {/* --------------------- */}
         {/* Main Routes */}
@@ -92,7 +55,7 @@ const App = () => {
           <Route path="/projects/testonology" element={<TestnologyCase />} />
           <Route path="/projects/crave-curve" element={<CraveCurveCase />} />
           <Route path="/projects/pos-system" element={<CodeNexusPOSCase />} />
-          <Route path="/projects/hospital-managment" element={<HospitalManagementCase />} />
+          <Route path="/projects/hospital-system" element={<HospitalManagementCase />} />
         </Routes>
       </Router>
     </FirebaseProvider>
