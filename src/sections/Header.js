@@ -1,99 +1,283 @@
-// src/components/Header.js
-
 import React, { useState, useEffect } from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-
-// ✅ 1. IMPORT CHANGE: Import HashLink and rename it to Link for a seamless replacement.
+import { Container } from "react-bootstrap";
+import { motion, AnimatePresence } from "framer-motion";
 import { HashLink as Link } from 'react-router-hash-link';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // --- Styles remain the same ---
-  const navbarStyle = {
-    transition: "all 0.3s ease",
-    backgroundColor: isScrolled ? "rgba(0, 0, 0, 0.85)" : "transparent",
-    backdropFilter: "blur(10px)",
-    padding: "15px 0",
-    boxShadow: isScrolled ? "0px 4px 20px rgba(0, 0, 0, 0.5)" : "none",
-    zIndex: 10,
-    borderBottom: isScrolled ? "1px solid rgba(62, 234, 191, 0.2)" : "none",
+  const navLinks = [
+    { name: "Home", to: "/#hero" },
+    { name: "About", to: "/#About" },
+    { name: "Projects", to: "/#Projects" },
+    { name: "Expertise", to: "/#Expertise" },
+    { name: "Contact", to: "/#contact" },
+    { name: "Idea2Impact", to: "/submitidea" },
+    { name: "Careers", to: "/careers" },
+  ];
+
+  // Menu variants for smooth animation
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      scale: 0.95,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut"
+      }
+    },
+    open: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
   };
 
-  const brandStyle = {
-    fontSize: "1.8rem",
-    fontWeight: "700",
-    background: "linear-gradient(45deg, #3eeabf, #2a8cff)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    marginLeft: "20px",
-    letterSpacing: "1px",
-  };
-
-  const navLinkStyle = {
-    fontSize: "1rem",
-    fontWeight: "500",
-    margin: "0 15px",
-    color: "#fff",
-    transition: "all 0.3s ease",
+  const linkVariants = {
+    closed: { opacity: 0, y: 20 },
+    open: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.1 + i * 0.1,
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    })
   };
 
   return (
     <>
-      <Navbar expand="lg" fixed="top" style={navbarStyle}>
-        <Navbar.Brand as={Link} to="/#hero" style={brandStyle}>
-          CodeNexus
-        </Navbar.Brand>
-        <Navbar.Toggle
-          aria-controls="basic-navbar-nav"
-          style={{ borderColor: "#3eeabf" }}
-        />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto" style={{ marginRight: "20px" }}>
-            {/* ✅ 2. NO OTHER CHANGES NEEDED! These links will now work correctly. */}
-            {/* The HashLink component intelligently waits for the page to render before scrolling. */}
-            <Nav.Link as={Link} to="/#hero" style={navLinkStyle} className="nav-hover">
-              Home
-            </Nav.Link>
-            <Nav.Link as={Link} to="/#About" style={navLinkStyle} className="nav-hover">
-              About
-            </Nav.Link>
-            <Nav.Link as={Link} to="/#Projects" style={navLinkStyle} className="nav-hover">
-              Projects
-            </Nav.Link>
-            <Nav.Link as={Link} to="/#Expertise" style={navLinkStyle} className="nav-hover">
-              Expertise
-            </Nav.Link>
-            <Nav.Link as={Link} to="/#contact" style={navLinkStyle} className="nav-hover">
-              Contact
-            </Nav.Link>
-            {/* This link to a different page will also continue to work as expected. */}
-            <Nav.Link as={Link} to="/submitidea" style={navLinkStyle} className="nav-hover">
-              Idea2Impact
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      
-      {/* The style tag can be removed if you handle this CSS globally */}
-      <style>
-        {`
-          .nav-hover:hover {
-            color: #3eeabf !important;
-            transform: translateY(-2px);
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className={`custom-navbar ${isScrolled ? "scrolled" : ""}`}
+      >
+        <Container className="d-flex justify-content-between align-items-center h-100">
+          <Link to="/#hero" className="brand-logo text-decoration-none">
+            Code<span className="highlight">Nexus</span>
+          </Link>
+
+          {/* Desktop Menu */}
+          <div className="d-none d-lg-flex align-items-center gap-4">
+            {navLinks.map((link, index) => (
+              <Link
+                key={index}
+                to={link.to}
+                className="nav-link-custom"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile Toggle */}
+          <button
+            className={`menu-toggle d-lg-none ${isOpen ? "open" : ""}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation"
+          >
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </button>
+        </Container>
+      </motion.nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={menuVariants}
+            className="mobile-menu-overlay"
+          >
+            <div className="mobile-links">
+              {navLinks.map((link, index) => (
+                <motion.div
+                  key={index}
+                  custom={index}
+                  variants={linkVariants}
+                >
+                  <Link
+                    to={link.to}
+                    onClick={() => setIsOpen(false)}
+                    className="mobile-link"
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style>{`
+        .custom-navbar {
+          position: fixed;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%) !important;
+          width: 90%;
+          max-width: 1200px;
+          height: 70px;
+          background: rgba(5, 8, 22, 0.5);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 50px;
+          z-index: 1000;
+          transition: all 0.4s ease;
+          box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .custom-navbar.scrolled {
+          top: 10px;
+          width: 95%;
+          background: rgba(5, 8, 22, 0.85);
+          border-color: rgba(62, 234, 191, 0.2);
+          box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        .brand-logo {
+          font-size: 1.5rem;
+          font-weight: 800;
+          color: #fff;
+          letter-spacing: 1px;
+        }
+
+        .highlight {
+          color: #3eeabf;
+        }
+
+        .nav-link-custom {
+          color: rgba(255, 255, 255, 0.7);
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 0.95rem;
+          transition: all 0.3s ease;
+          position: relative;
+          padding: 5px 0;
+        }
+
+        .nav-link-custom:hover {
+          color: #fff;
+        }
+
+        .nav-link-custom::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: #3eeabf;
+          transition: width 0.3s ease;
+        }
+
+        .nav-link-custom:hover::after {
+          width: 100%;
+        }
+
+        /* Mobile Toggle */
+        .menu-toggle {
+          background: none;
+          border: none;
+          cursor: pointer;
+          width: 30px;
+          height: 20px;
+          position: relative;
+          z-index: 1002;
+        }
+
+        .bar {
+          display: block;
+          width: 100%;
+          height: 2px;
+          background: #fff;
+          position: absolute;
+          transition: all 0.3s ease;
+        }
+
+        .bar:nth-child(1) { top: 0; }
+        .bar:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .bar:nth-child(3) { bottom: 0; }
+
+        .menu-toggle.open .bar:nth-child(1) {
+          transform: rotate(45deg);
+          top: 9px;
+        }
+        .menu-toggle.open .bar:nth-child(2) {
+          opacity: 0;
+        }
+        .menu-toggle.open .bar:nth-child(3) {
+          transform: rotate(-45deg);
+          bottom: 9px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          background: rgba(5, 8, 22, 0.98);
+          backdrop-filter: blur(20px);
+          z-index: 999;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .mobile-links {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 35px;
+        }
+
+        .mobile-link {
+          font-size: 2.2rem;
+          color: #fff;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          background: linear-gradient(45deg, #fff, #fff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .mobile-link:hover {
+          background: linear-gradient(45deg, #3eeabf, #6A5ACD);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          transform: scale(1.1);
+        }
+
+        @media (max-width: 991px) {
+          .custom-navbar {
+            width: 95%;
+            top: 15px;
           }
-        `}
-      </style>
+        }
+      `}</style>
     </>
   );
 };

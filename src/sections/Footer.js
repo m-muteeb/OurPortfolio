@@ -13,7 +13,7 @@ import "../scss/_footer.css"
 
 const Footer = () => {
   const quickLinks = [
-    { name: "Home", href: "#" },
+    { name: "Home", href: "#hero" },
     { name: "Projects", href: "#Projects" },
     { name: "Services", href: "#Expertise" },
     { name: "Contact", href: "#contact" },

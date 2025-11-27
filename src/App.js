@@ -5,10 +5,12 @@ import { FirebaseProvider } from "./firebase/FirebaseContext";
 import { Modal, Button } from "react-bootstrap"; // Bootstrap Modal
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
 import "font-awesome/css/font-awesome.min.css"; // Font Awesome CSS
+import Lenis from "lenis";
 
 // Pages & Sections
 import Home from "./pages/Home";
 import Submitidea from "./sections/SubmitIdea";
+import Careers from "./sections/Careers";
 import Projectwall from "./sections/ProjectsWall";
 import ExpertiseDetail from "./sections/ExpertiseDetail.js";
 import AmbitiousCase from "./sections/CaseStudies/AmbitiousCase.js";
@@ -21,6 +23,31 @@ import HospitalManagementCase from "./sections/CaseStudies/Hospitalmanagement.js
 const App = () => {
   // State to control popup visibility
   const [showPopup, setShowPopup] = useState(false);
+
+  // Initialize Lenis for smooth scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.5, // Premium smooth feel
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: "vertical",
+      gestureDirection: "vertical",
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   // Show modal on page load & auto-close after 5 seconds
   useEffect(() => {
@@ -39,8 +66,8 @@ const App = () => {
   return (
     <FirebaseProvider>
       <Router>
-       
-        
+
+
 
         {/* --------------------- */}
         {/* Main Routes */}
@@ -48,6 +75,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/submitidea" element={<Submitidea />} />
+          <Route path="/careers" element={<Careers />} />
           <Route path="/projectwall" element={<Projectwall />} />
           <Route path="/expertisedetail/:id" element={<ExpertiseDetail />} />
           <Route path="/projects/ambitious-pk" element={<AmbitiousCase />} />
