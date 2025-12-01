@@ -1,0 +1,175 @@
+/* Overall Project Section Styling */
+.projects-section {
+  background-color: #f8f9fa; /* Light, professional background */
+  padding: 80px 50px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 45px;
+  color: #212529; /* Dark text for contrast */
+}
+
+.section-title .highlight-text {
+  color: #008000; /* Keeping your green highlight color */
+}
+
+.section-subtitle {
+  color: #6c757d; /* Softer gray for the subtitle */
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 18px;
+}
+
+/* Projects Grid - Fully Responsive */
+.projects-grid {
+  display: grid;
+  /* This CSS grid rule is responsive by default:
+     - 'auto-fit' creates as many columns as fit
+     - 'minmax(320px, 1fr)' means each column is at least 320px 
+       but can grow to be 1fr (an equal fraction of the space)
+  */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Individual Project Card Styling */
+.project-card {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden; /* Ensures image corners are rounded */
+
+  /* Flex layout to push the button to the bottom */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Hover Effect */
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Image */
+.project-card-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  /* No border-radius here, 'overflow: hidden' on the card handles it */
+}
+
+/* Card Content Area */
+.project-card-content {
+  padding: 25px;
+  /* Flex-grow ensures this content area fills the available space,
+     pushing the link (which has margin-top: auto) to the bottom */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-card-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #008000; /* Using your green for the title */
+  margin-bottom: 10px;
+}
+
+.project-card-description {
+  font-size: 15px;
+  color: #495057;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1; /* Allows description to take up space */
+}
+
+/* Project Details (Stack, Status, etc.) */
+.project-card-details {
+  margin-bottom: 20px;
+}
+
+.project-card-details p {
+  font-size: 14px;
+  color: #6c757d;
+  margin: 8px 0;
+}
+
+.project-card-details strong {
+  color: #343a40; /* Makes the label slightly darker */
+}
+
+/* "Read More" Button/Link */
+.project-card-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #008000;
+  color: #ffffff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: 500;
+  text-align: center;
+  
+  /* Pushes the button to the bottom of the card */
+  margin-top: auto; 
+  /* Ensures the button doesn't stretch to full width */
+  align-self: flex-start;
+}
+
+.project-card-link:hover {
+  background-color: #006400; /* Darker green on hover */
+  transform: scale(1.03);
+}
+
+/* --- Responsiveness --- */
+
+/* For tablet devices */
+@media (max-width: 768px) {
+  .projects-section {
+    padding: 60px 30px;
+  }
+
+  .section-title {
+    font-size: 38px;
+  }
+
+  .section-subtitle {
+    font-size: 16px;
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+  .projects-section {
+    padding: 40px 20px;
+  }
+
+  .section-title {
+    font-size: 32px;
+  }
+  
+  /* On mobile, stack to a single column. 
+     minmax(320px, 1fr) already handles this well,
+     but we can force it if needed.
+  */
+  .projects-grid {
+     /* We can adjust minmax if needed, e.g., minmax(280px, 1fr) */
+     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .project-card-content {
+    padding: 20px;
+  }
+
+  .project-card-title {
+    font-size: 20px;
+  }
+}

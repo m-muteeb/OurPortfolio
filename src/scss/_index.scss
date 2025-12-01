@@ -1,0 +1,84 @@
+html, body {
+  background-color: #040711;
+  scroll-behavior: smooth;
+}
+
+.founder-section {
+  padding: 60px 20px;
+  background-color:#040711;
+;
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
+  .founder-image img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .founder-name {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    font-weight: 600;
+  }
+
+  .founder-role {
+    font-size: 1rem;
+    color: #666;
+  }
+
+  .ceo-message {
+    .message-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+
+    .message-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #444;
+    }
+  }
+}
+.our-team-section {
+  padding: 40px 0;
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 40px;
+  }
+
+  .team-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+  }
+
+  h4 {
+    margin-top: 16px;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .team-title {
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 10px;
+  }
+
+  .team-intro {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .ant-card {
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  }
+}

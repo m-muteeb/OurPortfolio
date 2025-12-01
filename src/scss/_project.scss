@@ -1,0 +1,128 @@
+.hero {
+  padding-top: 70px;
+  background-color: rgb(4, 7, 17); // Dark base
+  background-size: cover;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #ffffff;
+
+  .navbar-custom {
+    transition: background-color 0.3s ease, padding 0.3s ease;
+    background: transparent;
+
+    &.navbar-scrolled {
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+      color: #fff;
+    }
+
+    .brand {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #3eeabf;
+      margin-left: 17px;
+    }
+
+    .navbar-toggler {
+      border-color: #3eeabf;
+    }
+
+    .navbar-collapse {
+      justify-content: flex-start;
+    }
+
+    .nav-link {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-left: 15px;
+      color: #ffffff;
+      position: relative;
+
+      &:hover {
+        color: #3eeabf !important;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 100%;
+        height: 2px;
+        background-color: #3eeabf;
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+  }
+}
+
+.intro-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  position: relative;
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  margin: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.name {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.skills {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #3eeabf;
+  transition: 0.5s ease;
+}
+
+.Resume-button {
+  background-color: #3eeabf;
+  color: #000;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 30px;
+  margin-top: 15px;
+
+  &:hover {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #3eeabf;
+    transition: all 0.3s ease-out;
+  }
+}
+
+.social-media-icons {
+  margin-top: 25px;
+
+  a {
+    color: #ffffff;
+    font-size: 2rem;
+    margin: 0 12px;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #3eeabf;
+    }
+  }
+}
