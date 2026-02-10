@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../sections/supabaseClient';
 import Header from './Header';
-import Footer from '../sections/Footer';
+import Footer from './Footer';
 import { motion, AnimatePresence } from 'framer-motion';
-
+import './Services/services.css';
 import './Careers.css';
 
 const Careers = () => {
@@ -12,7 +12,6 @@ const Careers = () => {
     const [loading, setLoading] = useState(false);
     const [feedback, setFeedback] = useState({ type: '', message: '' });
 
-    // Form State
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -33,13 +32,7 @@ const Careers = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
-        setFormData({
-            fullName: '',
-            email: '',
-            phone: '',
-            portfolioLink: '',
-            coverLetter: ''
-        });
+        setFormData({ fullName: '', email: '', phone: '', portfolioLink: '', coverLetter: '' });
     };
 
     const handleInputChange = (e) => {
@@ -53,7 +46,7 @@ const Careers = () => {
         setFeedback({ type: '', message: '' });
 
         if (!formData.fullName || !formData.email || !formData.phone) {
-            setFeedback({ type: 'error', message: 'ERROR: Required fields missing.' });
+            setFeedback({ type: 'error', message: 'Please fill out all required fields.' });
             setLoading(false);
             return;
         }
@@ -69,373 +62,297 @@ const Careers = () => {
 
         try {
             const { error } = await supabase.from('careers').insert([applicationData]);
-
             if (error) throw error;
-
-            setFeedback({ type: 'success', message: 'SUCCESS: Transmission Received.' });
-
-            setTimeout(() => {
-                handleCloseModal();
-            }, 2000);
-
+            setFeedback({ type: 'success', message: 'Your application has been submitted successfully.' });
+            setTimeout(() => { handleCloseModal(); }, 2000);
         } catch (error) {
             console.error('Error submitting application:', error);
-            setFeedback({ type: 'error', message: `FATAL: ${error.message}` });
+            setFeedback({ type: 'error', message: `Submission failed: ${error.message}` });
         } finally {
             setLoading(false);
         }
     };
 
-    // Animation Variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.2 }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { y: 30, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: { duration: 0.6, ease: "easeOut" }
-        }
-    };
-
     return (
-        <div className="careers-page-wrapper">
-            {/* HERO SECTION */}
-            <section className="careers-hero position-relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
-                <div className="hero-background">
-                    <div className="orb orb-1"></div>
-                    <div className="orb orb-2"></div>
-                    <div className="grid-overlay"></div>
-                </div>
-
-                <div className="container position-relative z-2">
-                    <div className="row align-items-center">
-                        <div className="col-lg-7 text-center text-lg-start">
-                            <motion.div
-                                initial="hidden"
-                                animate="visible"
-                                variants={{
-                                    hidden: { opacity: 0 },
-                                    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
-                                }}
-                            >
-                                <motion.h1 
-                                    className="display-title mb-4 fw-bold"
-                                    variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-                                    style={{ fontSize: 'clamp(3rem, 5vw, 5rem)', lineHeight: 1.1, color: '#fff' }}
-                                >
-                                    Shape the <br />
-                                    <span className="gradient-text" style={{ background: 'linear-gradient(135deg, #00f3ff 0%, #bc13fe 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                                        Digital Frontier
-                                    </span>
-                                </motion.h1>
-
-                                <motion.h2 
-                                    className="h3 text-light mb-4 fw-light"
-                                    variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-                                >
-                                    Join our elite team of <span style={{ color: '#00f3ff' }}>Innovators</span>
-                                </motion.h2>
-
-                                <motion.p 
-                                    className="lead text-gray mb-5 mx-auto mx-lg-0" 
-                                    style={{ maxWidth: '600px', color: '#a1a1aa', fontSize: '1.2rem' }}
-                                    variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-                                >
-                                    At CodeNexus, we don't just write code; we engineer the future. 
-                                    Collaborate on groundbreaking projects and accelerate your career in a 
-                                    culture of excellence.
-                                </motion.p>
-
-                                <motion.div 
-                                    className="cta-group d-flex justify-content-center justify-content-lg-start gap-3"
-                                    variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-                                >
-                                    <button 
-                                        className="btn-primary-glow"
-                                        onClick={() => document.querySelector('.missions-section').scrollIntoView({ behavior: 'smooth' })}
-                                        style={{
-                                            background: 'linear-gradient(90deg, #bc13fe, #00f3ff)',
-                                            border: 'none',
-                                            padding: '15px 40px',
-                                            color: '#fff',
-                                            borderRadius: '50px',
-                                            fontWeight: '600',
-                                            fontSize: '1.1rem',
-                                            boxShadow: '0 10px 30px rgba(188, 19, 254, 0.3)'
-                                        }}
-                                    >
-                                        View Openings
-                                    </button>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-
-                        <div className="col-lg-5 position-relative mt-5 mt-lg-0">
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 1, delay: 0.2 }}
-                                className="visual-container text-center"
-                            >
-                                <div className="hero-visual-glow" style={{
-                                    position: 'relative',
-                                    width: '300px',
-                                    height: '300px',
-                                    margin: '0 auto',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}>
-                                    <motion.div 
-                                        className="ring ring-1"
-                                        style={{
-                                            position: 'absolute', width: '100%', height: '100%',
-                                            border: '2px solid rgba(0, 243, 255, 0.3)', borderRadius: '50%',
-                                            borderTopColor: '#00f3ff'
-                                        }}
-                                        animate={{ rotate: 360 }}
-                                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                                    />
-                                    <motion.div 
-                                        className="ring ring-2"
-                                        style={{
-                                            position: 'absolute', width: '80%', height: '80%',
-                                            border: '2px solid rgba(188, 19, 254, 0.3)', borderRadius: '50%',
-                                            borderBottomColor: '#bc13fe'
-                                        }}
-                                        animate={{ rotate: -360 }}
-                                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                                    />
-                                    <div className="icon-center" style={{ fontSize: '5rem', color: '#fff', zIndex: 2 }}>
-                                        <i className="fa fa-rocket"></i>
-                                    </div>
-                                    <div className="glow-core" style={{
-                                        position: 'absolute', width: '150px', height: '150px',
-                                        background: 'radial-gradient(circle, rgba(0, 243, 255, 0.4), transparent)',
-                                        filter: 'blur(40px)'
-                                    }}></div>
-                                </div>
-                            </motion.div>
-                        </div>
-                    </div>
-                </div>
-
-                <motion.div 
-                    className="scroll-indicator"
-                    style={{
-                        position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)',
-                        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', opacity: 0.7
-                    }}
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                >
-                   
-              
-                </motion.div>
-            </section>
-
+        <div className="service-wrapper light-theme">
             <Header />
+            <main className="service-main">
+                <div className="service-container">
 
-            {/* CULTURE SECTION */}
-            <section className="culture-section">
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={containerVariants}
-                >
-                    <h2 className="section-title">The Nexus DNA</h2>
-                    <div className="culture-grid">
-                        <motion.div className="culture-card" variants={itemVariants}>
-                            <div className="culture-icon"><i className="fa fa-bolt"></i></div>
-                            <h3>Innovation First</h3>
-                            <p>We don't just follow trends; we set them. We push the boundaries of what's possible with code.</p>
-                        </motion.div>
-                        <motion.div className="culture-card" variants={itemVariants}>
-                            <div className="culture-icon"><i className="fa fa-diamond"></i></div>
-                            <h3>Pixel Perfection</h3>
-                            <p>Good enough is not enough. We obsess over every pixel, every interaction, every line of code.</p>
-                        </motion.div>
-                        <motion.div className="culture-card" variants={itemVariants}>
-                            <div className="culture-icon"><i className="fa fa-globe"></i></div>
-                            <h3>Global Impact</h3>
-                            <p>We build software that matters. Solutions that scale. Systems that change lives.</p>
-                        </motion.div>
-                    </div>
-                </motion.div>
-            </section>
+                    {/* HERO */}
+                    <section className="careers-hero-section animate-in">
+                        <div className="careers-hero-content">
+                            <span className="careers-badge">We Are Hiring</span>
+                            <h1 className="hero-title">
+                                Build the Future <br />
+                                <span className="hero-title-accent">With Code Nexus</span>
+                            </h1>
+                            <p className="hero-subtitle">
+                                Join our team of engineers, designers, and strategists working on products that impact thousands of users across Pakistan. We value excellence, ownership, and continuous growth.
+                            </p>
+                            <div className="careers-hero-stats">
+                                <div className="careers-stat">
+                                    <span className="careers-stat-value">75+</span>
+                                    <span className="careers-stat-label">Projects Delivered</span>
+                                </div>
+                                <div className="careers-stat-divider"></div>
+                                <div className="careers-stat">
+                                    <span className="careers-stat-value">2</span>
+                                    <span className="careers-stat-label">Open Positions</span>
+                                </div>
+                                <div className="careers-stat-divider"></div>
+                                <div className="careers-stat">
+                                    <span className="careers-stat-value">100%</span>
+                                    <span className="careers-stat-label">Remote Friendly</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
-            {/* PERKS SECTION */}
-            <section className="perks-section">
-                <div className="perks-container">
-                    <div className="perk-pill"><i className="fa fa-wifi"></i> Remote-First Culture</div>
-                    <div className="perk-pill"><i className="fa fa-graduation-cap"></i> Elite Mentorship</div>
-                    <div className="perk-pill"><i className="fa fa-rocket"></i> Cutting-Edge Tech Stack</div>
-                    <div className="perk-pill"><i className="fa fa-users"></i> Collaborative Growth</div>
-                    <div className="perk-pill"><i className="fa fa-coffee"></i> Flexible Hours</div>
+                    {/* WHY CODE NEXUS */}
+                    <section className="animate-in section-spacing" style={{ animationDelay: '0.15s' }}>
+                        <h2 className="headline-accent">Why Code Nexus</h2>
+                        <div className="content-card">
+                            <p className="text-light">
+                                Code Nexus is not just a workplace — it is an ecosystem designed for ambitious professionals who want to build meaningful software. We provide the technical challenges, mentorship, and creative freedom that accelerate your career trajectory. Every team member contributes directly to products that serve real users and solve real problems.
+                            </p>
+                            <p className="text-light" style={{ marginTop: '15px' }}>
+                                Whether you are a seasoned developer or a fresh graduate with a hunger to learn, Code Nexus offers a meritocratic environment where your contributions are recognized and your growth is prioritized. We believe in building teams, not just filling positions.
+                            </p>
+                        </div>
+                    </section>
+
+                    {/* OUR CULTURE */}
+                    <section className="animate-in section-spacing" style={{ animationDelay: '0.2s' }}>
+                        <h2 className="headline-accent centered-headline">Our Culture</h2>
+                        <p className="text-light" style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 40px auto' }}>
+                            The principles that define how we work, collaborate, and grow together as a team.
+                        </p>
+                        <div className="grid-overview">
+                            <div className="process-step-card careers-culture-card">
+                                <h4>Innovation First</h4>
+                                <p className="text-light">
+                                    We do not follow trends — we set them. Every project is an opportunity to push boundaries and explore what technology can achieve when ambition meets execution.
+                                </p>
+                            </div>
+                            <div className="process-step-card careers-culture-card">
+                                <h4>Craft and Precision</h4>
+                                <p className="text-light">
+                                    Good enough is not our standard. We obsess over clean code, pixel-perfect interfaces, and seamless user experiences that reflect our commitment to quality at every level.
+                                </p>
+                            </div>
+                            <div className="process-step-card careers-culture-card">
+                                <h4>Impact at Scale</h4>
+                                <p className="text-light">
+                                    We build software that matters — solutions deployed to real users solving real problems. Every line of code we write is measured by the value it creates for the end user.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* GROWTH OPPORTUNITIES */}
+                    <section className="animate-in section-spacing" style={{ animationDelay: '0.3s' }}>
+                        <h2 className="headline-accent">Growth Opportunities</h2>
+                        <div className="content-card">
+                            <div className="growth-grid">
+                                <div className="growth-item">
+                                    <div className="growth-number">01</div>
+                                    <div className="growth-info">
+                                        <h4>Mentorship-Driven Development</h4>
+                                        <p className="text-light">Work directly with senior engineers and industry professionals who provide hands-on guidance, code reviews, and career coaching tailored to your individual growth path.</p>
+                                    </div>
+                                </div>
+                                <div className="growth-item">
+                                    <div className="growth-number">02</div>
+                                    <div className="growth-info">
+                                        <h4>Real-World Project Exposure</h4>
+                                        <p className="text-light">No mock projects or busywork. From day one, you contribute to live products with real users, real deadlines, and real impact — building a portfolio that speaks for itself.</p>
+                                    </div>
+                                </div>
+                                <div className="growth-item">
+                                    <div className="growth-number">03</div>
+                                    <div className="growth-info">
+                                        <h4>Cutting-Edge Tech Stack</h4>
+                                        <p className="text-light">Work with modern tools and frameworks including React, Next.js, Firebase, Supabase, AI/ML integrations, and n8n automation — staying ahead of industry standards.</p>
+                                    </div>
+                                </div>
+                                <div className="growth-item">
+                                    <div className="growth-number">04</div>
+                                    <div className="growth-info">
+                                        <h4>Certification and Recognition</h4>
+                                        <p className="text-light">Receive official experience certificates, recommendation letters, and LinkedIn endorsements that validate your contributions and strengthen your professional profile.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* WHAT WE OFFER */}
+                    <section className="animate-in section-spacing" style={{ animationDelay: '0.35s' }}>
+                        <h2 className="headline-accent centered-headline">What We Offer</h2>
+                        <div className="perks-grid">
+                            <div className="perk-card">
+                                <span className="perk-label">Remote-First Culture</span>
+                                <p className="text-light">Work from anywhere with flexible schedules that respect your productivity rhythms.</p>
+                            </div>
+                            <div className="perk-card">
+                                <span className="perk-label">Collaborative Environment</span>
+                                <p className="text-light">Daily standups, pair programming sessions, and open communication channels across teams.</p>
+                            </div>
+                            <div className="perk-card">
+                                <span className="perk-label">Flexible Working Hours</span>
+                                <p className="text-light">Results matter more than hours logged. We trust our team to manage their own time effectively.</p>
+                            </div>
+                            <div className="perk-card">
+                                <span className="perk-label">Performance-Based Growth</span>
+                                <p className="text-light">Clear pathways from intern to full-time based on measurable contributions and demonstrated skills.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* OPEN POSITIONS */}
+                    <section className="animate-in section-spacing" style={{ animationDelay: '0.4s' }}>
+                        <h2 className="headline-accent centered-headline">Open Positions</h2>
+                        <p className="text-light" style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 20px auto' }}>
+                            We are currently accepting applications for the following internship roles. Full-time positions are not available at this time.
+                        </p>
+
+                        <div className="no-fulltime-notice">
+                            No full-time positions are currently available.
+                        </div>
+
+                        {/* Position 1 */}
+                        <motion.div
+                            className="position-card"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <div className="position-header">
+                                <div>
+                                    <h3 className="position-title">Digital Marketing Intern</h3>
+                                    <p className="position-subtitle">Operation: Viral Growth</p>
+                                </div>
+                                <div className="position-tags">
+                                    <span className="position-tag internship">Internship</span>
+                                    <span className="position-tag mentorship">Mentorship-Focused</span>
+                                </div>
+                            </div>
+                            <p className="text-light position-desc">
+                                Master the art of digital presence and data-driven marketing. Execute high-impact campaigns across social media, content platforms, and SEO channels. Analyze audience insights, create compelling content strategies, and drive measurable growth for Code Nexus and its client projects.
+                            </p>
+                            <div className="position-footer">
+                                <div className="position-details">
+                                    <span className="detail-tag">Remote</span>
+                                    <span className="detail-tag">3-6 Months</span>
+                                    <span className="detail-tag">Flexible Hours</span>
+                                </div>
+                                <button className="btn-apply-light" onClick={() => handleApplyClick('Digital Marketing Intern')}>
+                                    Apply Now
+                                </button>
+                            </div>
+                        </motion.div>
+
+                        {/* Position 2 */}
+                        <motion.div
+                            className="position-card"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                        >
+                            <div className="position-header">
+                                <div>
+                                    <h3 className="position-title">React JS AI Developer</h3>
+                                    <p className="position-subtitle">Operation: Sentient Web</p>
+                                </div>
+                                <div className="position-tags">
+                                    <span className="position-tag internship">Internship</span>
+                                    <span className="position-tag mentorship">Mentorship-Focused</span>
+                                </div>
+                            </div>
+                            <p className="text-light position-desc">
+                                Build the interface of tomorrow. Integrate AI agents and intelligent automation into React-based applications. Create fluid, responsive user experiences powered by machine learning models, natural language processing, and modern web technologies.
+                            </p>
+                            <div className="position-footer">
+                                <div className="position-details">
+                                    <span className="detail-tag">Remote</span>
+                                    <span className="detail-tag">3-6 Months</span>
+                                    <span className="detail-tag">AI / ML Focus</span>
+                                </div>
+                                <button className="btn-apply-light" onClick={() => handleApplyClick('React JS AI Developer')}>
+                                    Apply Now
+                                </button>
+                            </div>
+                        </motion.div>
+                    </section>
+
                 </div>
-            </section>
+            </main>
 
-            {/* MISSIONS SECTION */}
-            <section className="missions-section">
-                <motion.div
-                    className="mission-board"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={containerVariants}
-                >
-                    <h2 className="section-title">Open Missions</h2>
-
-                    <div className="no-jobs-banner">
-                        <i className="fa fa-exclamation-triangle"></i> No Full-Time Operative Roles Available.
-                    </div>
-
-                    {/* Mission 1 */}
-                    <motion.div className="mission-card" variants={itemVariants}>
-                        <div className="mission-header">
-                            <h3 className="mission-title">Operation: Viral Growth</h3>
-                            <div className="mission-tags">
-                                <span className="tag freshers">Digital Marketing Intern</span>
-                                <span className="tag mentorship">Mentorship-Focused</span>
-                            </div>
-                        </div>
-                        <p className="mission-desc">
-                            Master the art of digital presence. Execute high-impact campaigns, analyze data streams, and drive exponential growth.
-                        </p>
-                        <div className="mission-action">
-                            <button className="btn-apply" onClick={() => handleApplyClick('Digital Marketing Intern')}>
-                                Initialize Application
-                            </button>
-                        </div>
-                    </motion.div>
-
-                    {/* Mission 2 */}
-                    <motion.div className="mission-card" variants={itemVariants}>
-                        <div className="mission-header">
-                            <h3 className="mission-title">Operation: Sentient Web</h3>
-                            <div className="mission-tags">
-                                <span className="tag freshers">React JS AI Developer</span>
-                                <span className="tag mentorship">Mentorship-Focused</span>
-                            </div>
-                        </div>
-                        <p className="mission-desc">
-                            Build the interface of tomorrow. Integrate AI agents into React applications and create fluid, intelligent user experiences.
-                        </p>
-                        <div className="mission-action">
-                            <button className="btn-apply" onClick={() => handleApplyClick('React JS AI Developer')}>
-                                Initialize Application
-                            </button>
-                        </div>
-                    </motion.div>
-                </motion.div>
-            </section>
-
+            {/* APPLICATION MODAL */}
             <AnimatePresence>
                 {showModal && (
                     <motion.div
-                        className="modal-backdrop"
+                        className="careers-modal-backdrop"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={handleCloseModal}
                     >
                         <motion.div
-                            className="modal-content"
-                            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                            className="careers-modal-content"
+                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
                             transition={{ type: "spring", damping: 25, stiffness: 300 }}
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <div className="modal-header">
-                                <div className="modal-title-group">
-                                    <h2>Initialize Sequence</h2>
-                                    <span className="modal-subtitle">{selectedRole}</span>
+                            <div className="careers-modal-header">
+                                <div>
+                                    <h2>Apply for Position</h2>
+                                    <span className="careers-modal-role">{selectedRole}</span>
                                 </div>
-                                <button className="close-btn" onClick={handleCloseModal}>
-                                    <i className="fa fa-times"></i>
-                                </button>
+                                <button className="careers-close-btn" onClick={handleCloseModal}>x</button>
                             </div>
-                            
-                            <form onSubmit={handleSubmit} className="application-form">
-                                <div className="form-grid">
-                                    <div className="form-group">
-                                        <label>Operative Name</label>
-                                        <input
-                                            type="text"
-                                            name="fullName"
-                                            value={formData.fullName}
-                                            onChange={handleInputChange}
-                                            required
-                                            placeholder="Enter full designation"
-                                        />
+
+                            <form onSubmit={handleSubmit} className="careers-form">
+                                <div className="careers-form-grid">
+                                    <div className="careers-form-group">
+                                        <label>Full Name *</label>
+                                        <input type="text" name="fullName" value={formData.fullName} onChange={handleInputChange} required placeholder="Your full name" />
                                     </div>
-                                    <div className="form-group">
-                                        <label>Comms Channel (Email)</label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleInputChange}
-                                            required
-                                            placeholder="secure@nexus.com"
-                                        />
+                                    <div className="careers-form-group">
+                                        <label>Email Address *</label>
+                                        <input type="email" name="email" value={formData.email} onChange={handleInputChange} required placeholder="your@email.com" />
                                     </div>
                                 </div>
-                                <div className="form-grid">
-                                    <div className="form-group">
-                                        <label>Signal Frequency (Phone)</label>
-                                        <input
-                                            type="tel"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleInputChange}
-                                            required
-                                            placeholder="+1 (555) 000-0000"
-                                        />
+                                <div className="careers-form-grid">
+                                    <div className="careers-form-group">
+                                        <label>Phone Number *</label>
+                                        <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required placeholder="+92 300 0000000" />
                                     </div>
-                                    <div className="form-group">
-                                        <label>Portfolio Uplink</label>
-                                        <input
-                                            type="url"
-                                            name="portfolioLink"
-                                            value={formData.portfolioLink}
-                                            onChange={handleInputChange}
-                                            placeholder="https://..."
-                                        />
+                                    <div className="careers-form-group">
+                                        <label>Portfolio / LinkedIn</label>
+                                        <input type="url" name="portfolioLink" value={formData.portfolioLink} onChange={handleInputChange} placeholder="https://..." />
                                     </div>
                                 </div>
-                                <div className="form-group full-width">
-                                    <label>Mission Statement (Cover Letter)</label>
-                                    <textarea
-                                        name="coverLetter"
-                                        value={formData.coverLetter}
-                                        onChange={handleInputChange}
-                                        rows="4"
-                                        placeholder="Brief us on your capabilities..."
-                                    ></textarea>
+                                <div className="careers-form-group">
+                                    <label>Cover Letter</label>
+                                    <textarea name="coverLetter" value={formData.coverLetter} onChange={handleInputChange} rows="4" placeholder="Tell us about yourself and why you are a great fit..."></textarea>
                                 </div>
 
                                 {feedback.message && (
-                                    <div className={`feedback-message ${feedback.type}`}>
+                                    <div className={`careers-feedback ${feedback.type}`}>
                                         {feedback.message}
                                     </div>
                                 )}
 
-                                <div className="modal-footer">
-                                    <button type="button" className="btn-cancel" onClick={handleCloseModal}>
-                                        Abort
-                                    </button>
-                                    <button type="submit" className="btn-submit" disabled={loading}>
-                                        {loading ? 'TRANSMITTING...' : 'EXECUTE UPLOAD'}
+                                <div className="careers-modal-footer">
+                                    <button type="button" className="btn-modal-cancel" onClick={handleCloseModal}>Cancel</button>
+                                    <button type="submit" className="btn-modal-submit" disabled={loading}>
+                                        {loading ? 'Submitting...' : 'Submit Application'}
                                     </button>
                                 </div>
                             </form>

@@ -138,36 +138,36 @@ const Header = () => {
           width: 90%;
           max-width: 1200px;
           height: 70px;
-          background: rgba(5, 8, 22, 0.5);
+          background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(12px);
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(14, 165, 233, 0.1);
           border-radius: 50px;
           z-index: 1000;
           transition: all 0.4s ease;
-          box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         .custom-navbar.scrolled {
           top: 10px;
           width: 95%;
-          background: rgba(5, 8, 22, 0.85);
-          border-color: rgba(62, 234, 191, 0.2);
-          box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+          background: rgba(255, 255, 255, 0.95);
+          border-color: rgba(14, 165, 233, 0.15);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
         }
 
         .brand-logo {
           font-size: 1.5rem;
-          font-weight: 800;
-          color: #fff;
-          letter-spacing: 1px;
+          font-weight: 700;
+          color: #0f172a;
+          letter-spacing: 0.5px;
         }
 
         .highlight {
-          color: #3eeabf;
+          color: #0ea5e9;
         }
 
         .nav-link-custom {
-          color: rgba(255, 255, 255, 0.7);
+          color: #475569;
           text-decoration: none;
           font-weight: 500;
           font-size: 0.95rem;
@@ -177,7 +177,7 @@ const Header = () => {
         }
 
         .nav-link-custom:hover {
-          color: #fff;
+          color: #0ea5e9;
         }
 
         .nav-link-custom::after {
@@ -187,7 +187,7 @@ const Header = () => {
           left: 0;
           width: 0;
           height: 2px;
-          background: #3eeabf;
+          background: #0ea5e9;
           transition: width 0.3s ease;
         }
 
@@ -210,7 +210,7 @@ const Header = () => {
           display: block;
           width: 100%;
           height: 2px;
-          background: #fff;
+          background: #0f172a;
           position: absolute;
           transition: all 0.3s ease;
         }
@@ -222,6 +222,7 @@ const Header = () => {
         .menu-toggle.open .bar:nth-child(1) {
           transform: rotate(45deg);
           top: 9px;
+          background: #0f172a;
         }
         .menu-toggle.open .bar:nth-child(2) {
           opacity: 0;
@@ -229,6 +230,7 @@ const Header = () => {
         .menu-toggle.open .bar:nth-child(3) {
           transform: rotate(-45deg);
           bottom: 9px;
+          background: #0f172a;
         }
 
         /* Mobile Menu */
@@ -238,7 +240,7 @@ const Header = () => {
           left: 0;
           width: 100%;
           height: 100vh;
-          background: rgba(5, 8, 22, 0.98);
+          background: rgba(14, 165, 233, 0.98);
           backdrop-filter: blur(20px);
           z-index: 999;
           display: flex;
@@ -259,15 +261,10 @@ const Header = () => {
           text-decoration: none;
           font-weight: 700;
           transition: all 0.3s ease;
-          background: linear-gradient(45deg, #fff, #fff);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
         }
 
         .mobile-link:hover {
-          background: linear-gradient(45deg, #3eeabf, #6A5ACD);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+          color: #0f172a;
           transform: scale(1.1);
         }
 

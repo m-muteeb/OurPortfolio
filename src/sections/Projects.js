@@ -1,300 +1,217 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
+import { motion } from 'framer-motion';
+import { ArrowRightOutlined, RocketOutlined, AppstoreOutlined } from '@ant-design/icons';
+import '../scss/_projects.scss';
 
-// Import your images as before
+// Import images
 import todoAppImage from '../assets/images/cravecurve.png';
 import testonology from '../assets/images/testonology.png';
 import gramture from '../assets/images/Gramture.png';
 import ambitious from '../assets/images/ambitious.png';
 import posImage from '../assets/images/possystem.png';
-import hospitalImage from '../assets/images/hospital.png';
+import hospitalImage from '../assets/images/unification.jpg'; // Corrected filename
 
-const projects = [
+// Major Case Studies (Editorial Layout)
+const caseStudies = [
   {
-    title: 'Testonology',
-    slug: 'testonology',
+    title: 'Testnology',
+    slug: 'testnology',
     image: testonology,
-    description: 'Test maker platform featuring custom quizzes, AI-assisted question generation, results analytics, and community sharing features.',
-    techStack: 'ReactJs, Supabase, n8n',
-    status: 'Underdevelopment',
-    type: 'Education',
-    date: 'Continue',
-  },
-  {
-    title: 'Gramture',
-    slug: 'gramture',
-    image: gramture,
-    description: 'A complete education platform for institutions to manage classes, teachers, and students digitally.',
-    techStack: 'React.js, Ant Design, Firebase',
-    status: 'Completed',
-    date: 'Jan 2024',
-    type: 'Education Platform',
+    description: 'AI-assisted quiz platform with automated test generation from multiple sources.',
+    techStack: ['ReactJs', 'Supabase', 'n8n', 'AI'],
+    status: 'In Development',
+    type: 'Automated Testing',
+    link: '/case-study/testnology'
   },
   {
     title: 'Ambitious Pk',
     slug: 'ambitious-pk',
     image: ambitious,
-    description: 'Learning portal providing online resources and management for students across Pakistan.',
-    techStack: 'React.js, Ant Design, Firebase',
+    description: 'Learning portal and management system for students across Pakistan.',
+    techStack: ['React.js', 'Firebase'],
     status: 'Completed',
-    date: 'Jun 2025',
+    type: 'Education',
+    link: '/case-study/ambitious-pk'
+  },
+  {
+    title: 'Unification Tibbi Foundation',
+    slug: 'unification-tibbi',
+    image: hospitalImage,
+    description: 'Comprehensive healthcare and management foundation system.',
+    techStack: ['React', 'Firebase', 'Express'],
+    status: 'In Progress',
+    type: 'Healthcare & NGO',
+    link: '/case-study/unification-tibbi'
+  }
+];
+
+// Other Projects (Grid Layout)
+const otherProjects = [
+  {
+    title: 'Gramture',
+    slug: 'gramture',
+    image: gramture,
+    description: 'A comprehensive education platform enabling institutions to manage classrooms, assignments, and student progress — all in one place.',
+    techStack: ['React.js', 'Ant Design', 'Firebase'],
+    status: 'Completed',
     type: 'Education Platform',
+    link: '#'
   },
   {
     title: 'Crave Curve',
     slug: 'crave-curve',
     image: todoAppImage,
-    description: 'A food ordering and tracking app designed with Firebase backend integration.',
-    techStack: 'React, Firebase',
+    description: 'A modern food ordering and delivery tracking application featuring real-time order updates and seamless user experience.',
+    techStack: ['React', 'Firebase'],
     status: 'Ongoing',
-    date: 'Feb 2024',
-    type: 'Web App',
+    type: 'Food & Delivery',
+    link: '#'
   },
   {
     title: 'POS System',
     slug: 'pos-system',
     image: posImage,
-    description: 'Point of Sale system with inventory management, billing, sales tracking, and reporting modules.',
-    techStack: 'React, Node.js, MySQL',
+    description: 'An enterprise-grade Point of Sale system with real-time inventory management, automated billing, and business analytics.',
+    techStack: ['React', 'Node.js', 'MySQL'],
     status: 'Completed',
-    date: 'Mar 2025',
     type: 'Business Software',
-  },
-  {
-    title: 'Hospital Management System',
-    slug: 'hospital-system',
-    image: hospitalImage,
-    description: 'Comprehensive hospital suite including doctor appointments, pharmacy, labs, patient history, and admin dashboard.',
-    techStack: 'React, Firebase, Express.js',
-    status: 'In Progress',
-    date: 'Apr 2025',
-    type: 'Enterprise Software',
+    link: '#'
   },
 ];
 
-// --- Styles Object ---
-
-const pageStyles = {
-  backgroundColor: '#040711',
-  padding: '50px 0',
-};
-
-const titleStyles = {
-  fontFamily: 'Poppins, sans-serif',
-  fontWeight: 600,
-  fontSize: '45px',
-  color: 'white',
-  textAlign: 'center',
-  marginBottom: '1rem',
-};
-
-const titleSpanStyles = {
-  color: 'green',
-};
-
-const subtitleStyles = {
-  color: '#aaa',
-  textAlign: 'center',
-  marginBottom: 40,
-};
-
-const gridStyles = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-  gap: '30px',
-  padding: '0 50px',
-};
-
-const cardBaseStyles = {
-  backgroundImage: 'linear-gradient(145deg, rgba(32, 0, 56, 0.6), rgba(0, 0, 64, 0.4))',
-  border: '1px solid rgba(255, 255, 255, 0.25)',
-  backdropFilter: 'blur(20px)',
-  borderRadius: '25px',
-  color: '#fff',
-  boxShadow: '0 12px 40px rgba(0,0,0,0.35)',
-  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-  position: 'relative',
-  overflow: 'hidden', // Ensures rounded corners apply to image
-  display: 'flex',
-  flexDirection: 'column',
-};
-
-const cardHoverStyles = {
-  transform: 'scale(1.05)',
-  boxShadow: '0 0 25px rgba(29, 184, 228, 0.5)',
-};
-
-const cardImageStyles = {
-  width: '100%',
-  height: '200px',
-  objectFit: 'cover',
-};
-
-const cardContentStyles = {
-  padding: '25px',
-  display: 'flex',
-  flexDirection: 'column',
-  flexGrow: 1, // This makes the content area fill the remaining space
-  minHeight: '350px', // Ensures cards have a consistent min height for content
-};
-
-const cardTitleStyles = {
-  color: '#1db8e4',
-  marginBottom: '10px',
-  fontFamily: 'Poppins, sans-serif',
-  fontSize: '22px',
-  fontWeight: '600',
-};
-
-const techStackContainerStyles = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '8px',
-  marginBottom: '15px',
-};
-
-const techTagStyles = {
-  backgroundColor: 'rgba(29, 184, 228, 0.15)',
-  color: '#9ecfff',
-  padding: '4px 10px',
-  borderRadius: '12px',
-  fontSize: '12px',
-  fontWeight: '500',
-  border: '1px solid rgba(29, 184, 228, 0.3)',
-};
-
-const cardDescriptionStyles = {
-  fontSize: '14px',
-  color: '#eaeaea',
-  lineHeight: '1.5',
-  marginBottom: '15px',
-};
-
-const spacerStyles = {
-  flexGrow: 1, // This is the spacer div
-};
-
-const cardMetadataStyles = {
-  paddingTop: '15px',
-  borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-};
-
-const metadataItemStyles = {
-  fontSize: '13px',
-  color: '#9ecfff',
-  margin: '5px 0',
-  display: 'flex',
-  justifyContent: 'space-between',
-};
-
-const metadataLabelStyles = {
-  color: '#eaeaea',
-  fontWeight: '600',
-  marginRight: '10px',
-};
-
-const readMoreButtonBaseStyles = {
-  display: 'block',
-  width: '100%',
-  marginTop: '20px',
-  padding: '12px 18px',
-  backgroundColor: '#1db8e4',
-  color: '#fff',
-  borderRadius: '12px',
-  textDecoration: 'none',
-  transition: 'background-color 0.3s, transform 0.2s',
-  fontWeight: '500',
-  textAlign: 'center',
-  border: 'none',
-  cursor: 'pointer',
-};
-
-const readMoreButtonHoverStyles = {
-  backgroundColor: '#18a4ca',
-  transform: 'translateY(-2px)',
-};
-
-// --- Component ---
-
 const Projects = () => {
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const [hoveredButton, setHoveredButton] = useState(null);
-
   return (
-    <div style={pageStyles} id="Projects">
-      <h2 style={titleStyles}>
-        Our <span style={titleSpanStyles}>Projects</span>
-      </h2>
-      <p style={subtitleStyles}>
-        Due to client privacy, only selected work is shown.
-      </p>
+    <section className="projects-section" id="Projects">
+      <Container>
+        {/* Header */}
+        <div className="text-center mb-5">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-uppercase text-sky fw-bold letter-spacing-2 mb-2 small"
+          >
+            <RocketOutlined className="me-2" />Our Work
+          </motion.p>
+          <motion.h2
+            className="display-5 fw-bold text-dark mb-3"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Featured <span className="text-gradient">Case Studies</span>
+          </motion.h2>
+          <p className="text-muted mb-0">In-depth look at our major software solutions.</p>
+          <div className="divider mx-auto mt-3"></div>
+        </div>
 
-      <div style={gridStyles}>
-        {projects.map((project, index) => {
-          const isCardHovered = hoveredCard === index;
-          const isButtonHovered = hoveredButton === index;
-
-          return (
-            <div
-              key={index}
-              style={{
-                ...cardBaseStyles,
-                ...(isCardHovered ? cardHoverStyles : {}),
-              }}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
+        {/* 1. MAJOR CASE STUDIES (Alternating Full-Width) */}
+        <div className="editorial-projects">
+          {caseStudies.map((project, index) => (
+            <motion.article
+              key={project.slug}
+              className={`editorial-item ${index % 2 === 0 ? 'image-left' : 'image-right'}`}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                style={cardImageStyles}
-              />
-              
-              <div style={cardContentStyles}>
-                <h4 style={cardTitleStyles}>{project.title}</h4>
-                
-                <div style={techStackContainerStyles}>
-                  {project.techStack.split(', ').map((tech) => (
-                    <span key={tech} style={techTagStyles}>{tech}</span>
-                  ))}
-                </div>
-
-                <p style={cardDescriptionStyles}>
-                  {project.description}
-                </p>
-
-                {/* This spacer div pushes everything below it to the bottom */}
-                <div style={spacerStyles} />
-
-                <div style={cardMetadataStyles}>
-                  <p style={metadataItemStyles}>
-                    <span style={metadataLabelStyles}>Status:</span> {project.status}
-                  </p>
-                  <p style={metadataItemStyles}>
-                    <span style={metadataLabelStyles}>Date:</span> {project.date}
-                  </p>
-                  <p style={metadataItemStyles}>
-                    <span style={metadataLabelStyles}>Type:</span> {project.type}
-                  </p>
-                </div>
-
-                <Link
-                  to={`/projects/${project.slug}`}
-                  style={{
-                    ...readMoreButtonBaseStyles,
-                    ...(isButtonHovered ? readMoreButtonHoverStyles : {}),
-                  }}
-                  onMouseEnter={() => setHoveredButton(index)}
-                  onMouseLeave={() => setHoveredButton(null)}
-                >
-                  Read More →
+              <div className="editorial-image">
+                <Link to={project.link}>
+                  <img src={project.image} alt={project.title} loading="lazy" />
+                  <div className="image-hover-overlay">
+                    <span className="hover-text">View Case Study</span>
+                  </div>
                 </Link>
               </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+
+              <div className="editorial-content">
+                <span className="project-type">{project.type}</span>
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-desc">{project.description}</p>
+                <div className="tech-stack">
+                  {project.techStack.map(tech => (
+                    <span key={tech} className="tech-pill">{tech}</span>
+                  ))}
+                </div>
+                <div className="project-meta">
+                  <span className={`status-indicator ${project.status === 'Completed' ? 'completed' : ''}`}>
+                    <span className="status-dot"></span>
+                    {project.status}
+                  </span>
+                </div>
+                <Link to={project.link} className="case-study-link">
+                  Explore Full Case Study
+                  <ArrowRightOutlined className="arrow-icon" />
+                </Link>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* 2. OTHER PROJECTS (Grid Layout) */}
+        <div className="other-projects-section">
+          <div className="text-center mb-5">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-uppercase text-sky fw-bold letter-spacing-2 mb-2 small"
+            >
+              <AppstoreOutlined className="me-2" />Portfolio
+            </motion.p>
+            <motion.h2
+              className="display-5 fw-bold text-dark mb-3"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              More <span className="text-gradient">Projects</span>
+            </motion.h2>
+            <p className="text-muted mb-0">Explore more of our crafted digital solutions across industries.</p>
+            <div className="divider mx-auto mt-3"></div>
+          </div>
+
+          <Row className="gy-4">
+            {otherProjects.map((project, index) => (
+              <Col lg={4} md={6} sm={12} key={project.slug}>
+                <motion.div
+                  className="project-card-simple"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.15, duration: 0.5 }}
+                >
+                  <div className="simple-card-image">
+                    <img src={project.image} alt={project.title} loading="lazy" />
+                    <div className="simple-card-overlay">
+                      <span className="overlay-type">{project.type}</span>
+                    </div>
+                  </div>
+                  <div className="simple-card-body">
+                    <div className="card-header-row">
+                      <h5 className="card-title">{project.title}</h5>
+                      <span className={`status-badge ${project.status === 'Completed' ? 'completed' : 'ongoing'}`}>
+                        {project.status}
+                      </span>
+                    </div>
+                    <p className="card-description">{project.description}</p>
+                    <div className="tech-stack-mini">
+                      {project.techStack.map(t => <span key={t} className="tech-tag">{t}</span>)}
+                    </div>
+                  </div>
+                </motion.div>
+              </Col>
+            ))}
+          </Row>
+        </div>
+
+      </Container>
+    </section>
   );
 };
 

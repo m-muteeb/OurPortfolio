@@ -1,11 +1,17 @@
-/* Hero Section Styles */
+/* ============================================
+   HERO SECTION - Professional Sky Blue Theme
+   Color Palette: Sky Blue (#0ea5e9) + White
+   ============================================ */
+
 .hero-wrapper {
     position: relative;
-    background-color: #050816;
-    overflow: hidden;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    width: 100%;
+    max-width: 100vw;
     min-height: 100vh;
     padding-bottom: 0;
-    /* Ensure no gap */
     margin-bottom: 0;
 }
 
@@ -18,247 +24,154 @@
     z-index: 0;
 }
 
-/* Enhanced Grid with Animation */
+/* Minimal grid pattern */
 .grid-overlay {
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(rgba(62, 234, 191, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(62, 234, 191, 0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
-    transform: perspective(500px) rotateX(20deg);
-    transform-origin: center top;
-    opacity: 0.5;
-    animation: gridMove 20s linear infinite;
+        linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
 }
 
-@keyframes gridMove {
-    0% {
-        background-position: 0 0;
-    }
-
-    100% {
-        background-position: 0 50px;
-    }
-}
-
-/* Stars Effect */
+/* Hidden for light theme */
 .stars {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image:
-        radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
-        radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
-        radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
-        radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
-        radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0));
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    animation: starsMove 100s linear infinite;
-    opacity: 0.3;
+    display: none;
 }
 
-@keyframes starsMove {
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(-1000px);
-    }
-}
-
+/* Soft sky blue accents - HIDDEN */
 .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.4;
+    display: none !important;
 }
 
 .orb-1 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, #3eeabf 0%, transparent 70%);
-    top: -150px;
-    right: -10%;
+    display: none !important;
 }
 
 .orb-2 {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, #6A5ACD 0%, transparent 70%);
-    bottom: -200px;
-    left: -10%;
+    display: none !important;
+}
+
+/* ============================================
+   BUTTONS - Sky Blue Theme with Hover Effects
+   ============================================ */
+
+.hero-btn-primary {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.35);
+    min-width: 180px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden !important;
+    /* Prevent pseudo-element overflow */
+}
+
+.hero-btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.hero-btn-primary:hover::before {
+    left: 100%;
+}
+
+.hero-btn-primary:hover {
+    box-shadow: 0 8px 30px rgba(14, 165, 233, 0.5);
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+    color: #ffffff;
+}
+
+.hero-btn-outline {
+    background: transparent;
+    border: 2px solid #0ea5e9;
+    color: #0ea5e9;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 10px;
+    min-width: 180px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-btn-outline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #0ea5e9;
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.hero-btn-outline:hover::before {
+    width: 100%;
+}
+
+.hero-btn-outline:hover {
+    color: #ffffff;
+    border-color: #0ea5e9;
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
 }
 
 .display-title {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-weight: 800;
-    line-height: 1.1;
-    color: #fff;
-    letter-spacing: -1px;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #3eeabf 0%, #6A5ACD 100%);
+    background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #38bdf8 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .text-gray {
-    color: #a0a0b0;
+    color: #475569 !important;
 }
 
 .typing-text {
-    color: #3eeabf;
+    color: #0ea5e9;
     font-weight: 600;
 }
 
 .cursor {
     display: inline-block;
     width: 2px;
-    background-color: #3eeabf;
+    height: 1em;
+    background-color: #0ea5e9;
     animation: blink 1s step-end infinite;
-    margin-left: 4px;
-}
-
-.btn-primary-glow {
-    background: linear-gradient(45deg, #3eeabf, #32c7a3);
-    border: none;
-    color: #050816;
-    font-weight: 700;
-    padding: 12px 32px;
-    border-radius: 50px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(62, 234, 191, 0.3);
-    min-width: 180px;
-}
-
-.btn-primary-glow:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(62, 234, 191, 0.5);
-    color: #050816;
-}
-
-.btn-outline-glass {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    padding: 12px 32px;
-    border-radius: 50px;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    min-width: 180px;
-}
-
-.btn-outline-glass:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #fff;
-    color: #fff;
-}
-
-.logo-container {
-    position: relative;
-    display: inline-block;
-    padding: 40px;
-    margin-top: 20px;
-}
-
-.logo-glow-effect {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.main-logo {
-    width: 180px;
-    height: auto;
-    filter: drop-shadow(0 0 20px rgba(62, 234, 191, 0.2));
-}
-
-.ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid transparent;
-}
-
-.ring-1 {
-    width: 100%;
-    height: 100%;
-    border-top-color: rgba(62, 234, 191, 0.3);
-    border-right-color: rgba(62, 234, 191, 0.1);
-}
-
-.ring-2 {
-    width: 80%;
-    height: 80%;
-    border-bottom-color: rgba(106, 90, 205, 0.4);
-    border-left-color: rgba(106, 90, 205, 0.1);
-}
-
-.ring-3 {
-    width: 120%;
-    height: 120%;
-    border: 1px dashed rgba(255, 255, 255, 0.1);
-}
-
-.scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    z-index: 5;
-}
-
-.mouse {
-    width: 26px;
-    height: 40px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    position: relative;
-}
-
-.wheel {
-    width: 4px;
-    height: 8px;
-    background: #fff;
-    border-radius: 2px;
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: scroll 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(62, 234, 191, 0.4);
-    }
-
-    70% {
-        box-shadow: 0 0 0 10px rgba(62, 234, 191, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(62, 234, 191, 0);
-    }
+    margin-left: 2px;
+    vertical-align: text-bottom;
 }
 
 @keyframes blink {
@@ -273,6 +186,159 @@
     }
 }
 
+/* ============================================
+   BUTTONS - Sky Blue Theme
+   ============================================ */
+
+.btn-primary-glow {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.35);
+    min-width: 180px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-primary-glow:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(14, 165, 233, 0.45);
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+    color: #ffffff;
+}
+
+.btn-outline-glass {
+    background: transparent;
+    border: 2px solid #0ea5e9;
+    color: #0ea5e9;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    min-width: 180px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-outline-glass:hover {
+    background: #0ea5e9;
+    color: #ffffff;
+    border-color: #0ea5e9;
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+}
+
+/* ============================================
+   LOGO CONTAINER
+   ============================================ */
+
+.logo-container {
+    position: relative;
+    display: inline-block;
+    padding: 20px;
+}
+
+.logo-glow-effect {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 20px 50px rgba(14, 165, 233, 0.15),
+        0 0 0 1px rgba(14, 165, 233, 0.08);
+}
+
+.main-logo {
+    width: 170px;
+    height: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+}
+
+/* Ring animations - Sky blue themed */
+.ring {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.ring-1 {
+    width: 115%;
+    height: 115%;
+    border: 2px solid rgba(14, 165, 233, 0.12);
+    animation: ringRotate 50s linear infinite;
+}
+
+.ring-2 {
+    width: 130%;
+    height: 130%;
+    border: 1px dashed rgba(56, 189, 248, 0.15);
+    animation: ringRotate 60s linear infinite reverse;
+}
+
+.ring-3 {
+    width: 145%;
+    height: 145%;
+    border: 1px solid rgba(14, 165, 233, 0.06);
+    animation: ringRotate 70s linear infinite;
+}
+
+@keyframes ringRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   SCROLL INDICATOR
+   ============================================ */
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #94a3b8;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    z-index: 5;
+}
+
+.mouse {
+    width: 22px;
+    height: 34px;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    position: relative;
+}
+
+.wheel {
+    width: 3px;
+    height: 6px;
+    background: #0ea5e9;
+    border-radius: 2px;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll 2s ease-out infinite;
+}
+
 @keyframes scroll {
     0% {
         top: 6px;
@@ -280,12 +346,60 @@
     }
 
     100% {
-        top: 20px;
+        top: 18px;
         opacity: 0;
     }
 }
 
-/* Mobile Responsiveness */
+/* ============================================
+   NAVBAR STYLING FOR HERO
+   ============================================ */
+
+.hero-wrapper .navbar {
+    background: transparent !important;
+}
+
+.hero-wrapper .navbar-brand,
+.hero-wrapper .nav-link {
+    color: #0f172a !important;
+    font-weight: 500;
+}
+
+.hero-wrapper .nav-link:hover {
+    color: #0ea5e9 !important;
+}
+
+/* Navbar Toggler - Force Dark Icon */
+.hero-wrapper .navbar-toggler,
+.navbar-toggler {
+    border-color: rgba(14, 165, 233, 0.5) !important;
+    background-color: #ffffff !important;
+    padding: 8px 12px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.hero-wrapper .navbar-toggler-icon,
+.navbar-toggler-icon,
+.hero-wrapper .navbar-toggler .navbar-toggler-icon,
+button.navbar-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(15, 23, 42, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    width: 24px !important;
+    height: 24px !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* When navbar is open/expanded - Show X in dark color */
+.hero-wrapper .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon,
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon,
+button.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath stroke='rgba(15, 23, 42, 1)' stroke-width='2.5' stroke-linecap='round' d='M2 2l12 12M14 2L2 14'/%3e%3c/svg%3e") !important;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
 @media (max-width: 991px) {
     .hero-content {
         text-align: center;
@@ -293,33 +407,43 @@
 
     .cta-group {
         justify-content: center !important;
-        /* Force center on mobile */
     }
 
     .logo-container {
-        margin-top: 40px;
-        transform: scale(0.9);
-        /* Slightly smaller on tablet */
-    }
-}
-
-@media (max-width: 576px) {
-    .display-title {
-        font-size: 2.5rem;
+        margin-top: 30px;
     }
 
     .logo-glow-effect {
-        width: 220px;
-        height: 220px;
+        width: 250px;
+        height: 250px;
     }
 
     .main-logo {
         width: 140px;
     }
+}
+
+@media (max-width: 576px) {
+    .display-title {
+        font-size: 2rem;
+    }
+
+    .logo-glow-effect {
+        width: 200px;
+        height: 200px;
+    }
+
+    .main-logo {
+        width: 120px;
+    }
 
     .btn-primary-glow,
     .btn-outline-glass {
         width: 100%;
-        /* Full width buttons on very small screens */
+        padding: 12px 24px;
+    }
+
+    .scroll-indicator {
+        bottom: 20px;
     }
 }

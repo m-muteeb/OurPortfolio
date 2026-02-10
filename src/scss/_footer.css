@@ -1,83 +1,106 @@
-/* Main Footer Container */
+/* ============================================
+   FOOTER
+   Light White & Sky Blue Theme
+   ============================================ */
+
 .footer-container {
-  background-color: #0a192f; /* Dark navy blue - professional tech color */
-  color: #8892b0; /* Light slate color for text - easy on the eyes */
-  padding: 80px 40px 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff;
+  color: #334155;
+  padding: 80px 5% 30px;
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid #e2e8f0;
 }
 
-/* Grid Layout for Footer Content */
 .footer-grid {
-  max-width: 1200px;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 50px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.footer-column {
+/* Brand Column */
+.footer-brand {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-/* Column 1: Logo and Social Links */
-.footer-logo {
-  color: #ccd6f6; /* Lighter, almost white color for headings */
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  letter-spacing: -1px;
+.footer-logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.footer-brand-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
 }
 
 .footer-description {
+  font-size: 0.92rem;
+  color: #64748b;
   line-height: 1.7;
   margin-bottom: 25px;
+  max-width: 320px;
 }
 
+/* Social Links */
 .social-links {
   display: flex;
-  gap: 15px;
+  gap: 12px;
 }
 
 .social-links a {
-  color: #ccd6f6;
-  background-color: rgba(100, 255, 218, 0.1);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #f0f9ff;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
-  transition: all 0.3s ease-in-out;
+  color: #0ea5e9;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 1px solid #bae6fd;
 }
 
 .social-links a:hover {
-  color: #64ffda; /* Bright accent color for hover */
-  transform: translateY(-5px);
-  background-color: rgba(100, 255, 218, 0.2);
+  background: #0ea5e9;
+  color: #ffffff;
+  border-color: #0ea5e9;
+  transform: translateY(-3px);
 }
 
-/* Columns 2, 3, 4: Headings and Lists */
+/* Column Headings */
 .footer-heading {
-  color: #ccd6f6;
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
   margin-bottom: 25px;
   position: relative;
+  padding-bottom: 12px;
 }
 
-/* Underline effect for headings */
 .footer-heading::after {
   content: '';
   position: absolute;
+  bottom: 0;
   left: 0;
-  bottom: -8px;
   width: 40px;
-  height: 2px;
-  background-color: #64ffda;
+  height: 3px;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+  border-radius: 2px;
 }
 
+/* Links */
 .footer-links {
   list-style: none;
   padding: 0;
@@ -85,57 +108,118 @@
 }
 
 .footer-links li {
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
+  margin-bottom: 12px;
 }
 
-.footer-links a {
-  color: #8892b0;
+.footer-links a,
+.footer-links li {
+  color: #64748b;
   text-decoration: none;
-  transition: all 0.3s ease;
+  font-size: 0.92rem;
   display: flex;
   align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
 }
 
-.footer-links a:hover, .footer-links li:hover {
-  color: #64ffda;
+.footer-links a:hover {
+  color: #0ea5e9;
   transform: translateX(5px);
 }
 
 .link-icon {
-  color: #64ffda;
-  font-size: 0.7rem;
-  margin-right: 12px;
+  font-size: 0.65rem;
+  color: #0ea5e9;
 }
 
-/* Contact Info Specifics */
+/* Contact Info */
 .contact-info {
   list-style: none;
   padding: 0;
   margin: 0;
-  color: #8892b0;
 }
 
 .contact-info li {
-  margin-bottom: 18px;
   display: flex;
   align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+  color: #64748b;
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .contact-icon {
-  color: #64ffda;
-  margin-right: 15px;
+  color: #0ea5e9;
   font-size: 1.1rem;
-  margin-top: 4px; /* Align icon with the first line of text */
+  margin-top: 2px;
+  flex-shrink: 0;
 }
 
-/* Copyright Section */
+/* Office Labels */
+.contact-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.office-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Copyright */
 .footer-copyright {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 60px auto 0;
   padding-top: 30px;
-  border-top: 1px solid #233554; /* A border color that fits the theme */
+  border-top: 1px solid #e2e8f0;
   text-align: center;
-  font-size: 0.9rem;
+}
+
+.footer-copyright p {
+  color: #94a3b8;
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 991px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-container {
+    padding: 60px 5% 25px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .footer-description {
+    max-width: 100%;
+  }
+
+  .footer-copyright {
+    margin-top: 40px;
+  }
+
+  .footer-brand-name {
+    font-size: 1.4rem;
+  }
+
+  .footer-logo-img {
+    width: 36px;
+    height: 36px;
+  }
 }

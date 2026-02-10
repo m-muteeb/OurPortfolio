@@ -1,0 +1,209 @@
+/* ============================================
+   STATS SECTION - Stylish & Extensive
+   Double Row Ticker + Premium Stats
+   ============================================ */
+
+.stats-section-stylish {
+  padding: 80px 0;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Background Decoration */
+.stats-section-stylish::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 70%);
+  z-index: 0;
+}
+
+/* Stats Styling */
+.stats-content-left {
+  position: relative;
+  z-index: 2;
+  border-right: 1px solid #f1f5f9;
+  padding-right: 40px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.stat-item-stylish {
+  padding: 10px;
+}
+
+.stat-item-stylish:last-child {
+  grid-column: span 2;
+  /* Consultations spans full width if odd number */
+}
+
+/* Gradient Text for Numbers */
+.text-gradient {
+  background: linear-gradient(135deg, #0284c7, #0ea5e9, #38bdf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+}
+
+.stat-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #64748b;
+  /* Slate-500 */
+  margin: 0;
+  line-height: 1.4;
+}
+
+.letter-spacing-2 {
+  letter-spacing: 2px;
+}
+
+/* Double Ticker Styling */
+.awards-display-wrapper {
+  position: relative;
+  z-index: 2;
+  padding-left: 20px;
+}
+
+.marquee-wrapper-stylish {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.marquee-content-scroll {
+  display: flex;
+  width: max-content;
+  /* Ensure width fits content */
+}
+
+.marquee-content-scroll.left {
+  animation: scrollLeft 35s linear infinite;
+}
+
+.marquee-content-scroll.right {
+  animation: scrollRight 40s linear infinite;
+  /* Slightly slower for contrast */
+}
+
+.marquee-card {
+  margin: 0 15px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 140px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.marquee-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(14, 165, 233, 0.1);
+  border-color: #bae6fd;
+  background: #ffffff;
+}
+
+.marquee-card img {
+  max-width: 100%;
+  max-height: 50px;
+  object-fit: contain;
+  opacity: 0.8;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.marquee-card:hover img {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+@keyframes scrollLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+
+  /* Use -50% because content is duplicated once */
+}
+
+@keyframes scrollRight {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .stats-content-left {
+    border-right: none;
+    padding-right: 0;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .stats-grid {
+    justify-items: center;
+  }
+
+  .stat-item-stylish:last-child {
+    grid-column: span 2;
+    text-align: center;
+  }
+
+  .awards-display-wrapper {
+    padding-left: 0;
+  }
+
+  .stat-number {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    /* Stack single column on mobile */
+  }
+
+  .stat-item-stylish:last-child {
+    grid-column: span 1;
+  }
+
+  .marquee-card {
+    width: 110px;
+    height: 70px;
+    padding: 10px;
+  }
+}

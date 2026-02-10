@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { Container, Row, Col } from "react-bootstrap";
+import { motion } from "framer-motion";
 import codenexslogo from "../assets/images/mylogo.png";
-import "../scss/_maincss.css";
-import "../scss/_hero_new.scss"; // Import new SCSS
+import "../scss/_hero_new.scss";
 import Header from "./Header";
 
 const Hero = () => {
   const [textIndex, setTextIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  
+
   const skills = [
     "Business Solutions",
     "AI Integration",
@@ -19,30 +18,6 @@ const Hero = () => {
   ];
 
   const containerRef = useRef(null);
-  const { scrollY } = useScroll();
-  
-  // Parallax effects
-  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-  // Mouse parallax effect
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  const springConfig = { damping: 25, stiffness: 120 };
-  const mouseX = useSpring(useTransform(scrollY, () => mousePosition.x * 50), springConfig);
-  const mouseY = useSpring(useTransform(scrollY, () => mousePosition.y * 50), springConfig);
 
   // Typing effect logic
   useEffect(() => {
@@ -65,135 +40,193 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, textIndex, skills]);
 
-  // Staggered animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
+  // Animation variants
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
-    },
+  // Inline styles
+  const titleStyle = {
+    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+    fontWeight: 700,
+    lineHeight: 1.2,
+    color: '#0f172a',
+    letterSpacing: '-0.5px',
+    fontFamily: "'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif"
+  };
+
+  const gradientStyle = {
+    background: 'linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #38bdf8 100%)',
+    WebkitBackgroundClip: 'text',
+    backgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    display: 'inline'
+  };
+
+  const subtitleStyle = {
+    color: '#475569',
+    fontWeight: 300,
+    fontFamily: "'Inter', sans-serif"
+  };
+
+  const typingStyle = {
+    color: '#0ea5e9',
+    fontWeight: 600
+  };
+
+  const descStyle = {
+    color: '#64748b',
+    maxWidth: '600px',
+    fontFamily: "'Inter', sans-serif",
+    fontSize: '1.05rem',
+    lineHeight: 1.7
   };
 
   return (
     <div className="hero-wrapper" ref={containerRef} id="hero">
       <div className="hero-background">
-        <motion.div 
-          className="orb orb-1"
-          style={{ y: y1, x: mouseX }}
-        />
-        <motion.div 
-          className="orb orb-2"
-          style={{ y: y2, x: mouseY }}
-        />
-        <div className="grid-overlay"></div>
-        <div className="stars"></div>
+        <div className="grid-overlay" />
       </div>
 
       <Header />
 
       <Container className="hero-content position-relative">
         <Row className="align-items-center min-vh-100 pt-5">
-          {/* Text Content */}
           <Col lg={7} className="text-content text-center text-lg-start mb-5 mb-lg-0 pt-5 pt-lg-0">
             <motion.div
-              variants={containerVariants}
               initial="hidden"
               animate="visible"
+              transition={{ staggerChildren: 0.15 }}
             >
-              <motion.h1 variants={itemVariants} className="display-title mb-4">
+              <motion.p
+                variants={fadeIn}
+                transition={{ duration: 0.4 }}
+                style={{
+                  color: '#0ea5e9',
+                  fontWeight: 600,
+                  fontSize: '0.85rem',
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  marginBottom: '16px',
+                  fontFamily: "'Inter', sans-serif"
+                }}
+              >
+                Enterprise Software Solutions
+              </motion.p>
+
+              <motion.h1
+                variants={fadeIn}
+                transition={{ duration: 0.5 }}
+                style={titleStyle}
+                className="mb-4"
+              >
                 Building the <br />
-                <span className="gradient-text">Digital Future</span>
+                <span style={gradientStyle}>Digital Future</span>
               </motion.h1>
-              
-              <motion.h2 variants={itemVariants} className="h3 text-light mb-4 fw-light">
+
+              <motion.h2
+                variants={fadeIn}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="h4 mb-4"
+                style={subtitleStyle}
+              >
                 Expertise in{" "}
-                <span className="typing-text">
+                <span style={typingStyle}>
                   {displayText}
-                  <span className="cursor">|</span>
+                  <span style={{
+                    display: 'inline-block',
+                    width: '2px',
+                    height: '1em',
+                    background: '#0ea5e9',
+                    marginLeft: '2px',
+                    animation: 'blink 1s step-end infinite'
+                  }}>|</span>
                 </span>
               </motion.h2>
 
-              <motion.p variants={itemVariants} className="lead text-gray mb-5 pe-lg-5 mx-auto mx-lg-0" style={{ maxWidth: "600px" }}>
-                We transform complex challenges into elegant digital solutions. 
-                From high-performance web applications to intelligent AI systems, 
-                CodeNexus is your partner in technical innovation.
+              <motion.p
+                variants={fadeIn}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mb-5 pe-lg-5 mx-auto mx-lg-0"
+                style={descStyle}
+              >
+                We are a leading software development company specializing in
+                enterprise-grade web applications, artificial intelligence solutions,
+                and custom software architecture.
               </motion.p>
 
-              <motion.div variants={itemVariants} className="cta-group d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
-                <Button 
-                  className="btn-primary-glow" 
-                  size="lg"
+              <motion.div
+                variants={fadeIn}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="cta-group d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap"
+              >
+                <motion.a
                   href="#contact"
+                  className="hero-btn-primary"
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                   Start Your Project
-                </Button>
-                <Button 
-                  variant="outline-light" 
-                  className="btn-outline-glass" 
-                  size="lg"
+                </motion.a>
+                <motion.a
                   href="#Projects"
+                  className="hero-btn-outline"
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  View Portfolio
-                </Button>
+                  View Our Work
+                </motion.a>
               </motion.div>
             </motion.div>
           </Col>
 
-          {/* Visual Content */}
           <Col lg={5} className="visual-content text-center position-relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1.2, delay: 0.2, type: "spring" }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               className="logo-container"
+              whileHover={{ scale: 1.03 }}
             >
-              <div className="logo-glow-effect">
-                <motion.div 
-                  className="ring ring-1"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                />
-                <motion.div 
-                  className="ring ring-2"
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                />
-                <motion.div 
-                  className="ring ring-3"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                />
-                <img 
-                  src={codenexslogo} 
-                  alt="CodeNexus" 
+              <motion.div
+                className="logo-glow-effect"
+                animate={{
+                  boxShadow: [
+                    '0 20px 50px rgba(14, 165, 233, 0.15)',
+                    '0 25px 60px rgba(14, 165, 233, 0.25)',
+                    '0 20px 50px rgba(14, 165, 233, 0.15)'
+                  ]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <div className="ring ring-1" />
+                <div className="ring ring-2" />
+                <div className="ring ring-3" />
+                <motion.img
+                  src={codenexslogo}
+                  alt="CodeNexus"
                   className="main-logo position-relative z-2"
+                  loading="eager"
+                  decoding="async"
+                  whileHover={{ scale: 1.08, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 />
-              </div>
+              </motion.div>
             </motion.div>
           </Col>
         </Row>
       </Container>
 
-      <motion.div 
+      <motion.div
         className="scroll-indicator d-none d-md-flex"
-        style={{ opacity }}
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
         <div className="mouse">
-          <div className="wheel"></div>
+          <div className="wheel" />
         </div>
         <span>Scroll to explore</span>
       </motion.div>

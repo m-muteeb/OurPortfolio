@@ -1,40 +1,52 @@
-import React, { useState, useEffect } from "react";
-import "./App.css"; // Main CSS
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { FirebaseProvider } from "./firebase/FirebaseContext";
-import { Modal, Button } from "react-bootstrap"; // Bootstrap Modal
-import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
-import "font-awesome/css/font-awesome.min.css"; // Font Awesome CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+import "font-awesome/css/font-awesome.min.css";
 import Lenis from "lenis";
 
-// Pages & Sections
+// ─── Pages ───────────────────────────────────────────────
 import Home from "./pages/Home";
+
+// ─── Sections (Standalone Pages) ─────────────────────────
 import Submitidea from "./sections/SubmitIdea";
 import Careers from "./sections/Careers";
 import Projectwall from "./sections/ProjectsWall";
-import ExpertiseDetail from "./sections/ExpertiseDetail.js";
-import AmbitiousCase from "./sections/CaseStudies/AmbitiousCase.js";
-import GramtureCase from "./sections/CaseStudies/Gramturecase.js";
-import TestnologyCase from "./sections/CaseStudies/Testnologycase.js";
-import CraveCurveCase from "./sections/CaseStudies/CraveCurveCase.js";
-import CodeNexusPOSCase from "./sections/CaseStudies/CodeNexusPosCase.js";
-import HospitalManagementCase from "./sections/CaseStudies/Hospitalmanagement.js";
+import ExpertiseDetail from "./sections/ExpertiseDetail";
+import ChatAgent from "./sections/ChatAgent";
+
+// ─── Case Studies ────────────────────────────────────────
+import TestnologyCase from "./sections/CaseStudies/TestnologyCaseStudy";
+import AmbitiousCaseStudy from "./sections/CaseStudies/AmbitiousCaseStudy";
+import UnificationTibbiCaseStudy from "./sections/CaseStudies/UnificationTibbiCaseStudy";
+
+// ─── Service Pages ───────────────────────────────────────
+import MobileAppService from "./sections/Services/MobileAppService";
+import WebDevService from "./sections/Services/WebDevService";
+import IoTService from "./sections/Services/IoTService";
+import SaaSService from "./sections/Services/SaaSService";
+import DevOpsService from "./sections/Services/DevOpsService";
+import AgenticAIService from "./sections/Services/AgenticAIService";
+import UIUXService from "./sections/Services/UIUXService";
+import DigitalMarketingService from "./sections/Services/DigitalMarketingService";
 
 const App = () => {
-  // State to control popup visibility
-  const [showPopup, setShowPopup] = useState(false);
-
   // Initialize Lenis for smooth scrolling
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.5, // Premium smooth feel
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.8,
+      easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
       direction: "vertical",
       gestureDirection: "vertical",
       smooth: true,
       mouseMultiplier: 1,
       smoothTouch: false,
       touchMultiplier: 2,
+      infinite: false,
+      lerp: 0.1,
+      smoothWheel: true,
+      wheelMultiplier: 1.2,
     });
 
     function raf(time) {
@@ -49,45 +61,39 @@ const App = () => {
     };
   }, []);
 
-  // Show modal on page load & auto-close after 5 seconds
-  useEffect(() => {
-    setShowPopup(true);
-    const timer = setTimeout(() => {
-      setShowPopup(false);
-    }, 5000);
-
-    // Cleanup timer
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Function to close modal
-  const handleClose = () => setShowPopup(false);
-
   return (
     <FirebaseProvider>
       <Router>
-
-
-
-        {/* --------------------- */}
-        {/* Main Routes */}
-        {/* --------------------- */}
         <Routes>
+          {/* Main Pages */}
           <Route path="/" element={<Home />} />
           <Route path="/submitidea" element={<Submitidea />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/projectwall" element={<Projectwall />} />
           <Route path="/expertisedetail/:id" element={<ExpertiseDetail />} />
-          <Route path="/projects/ambitious-pk" element={<AmbitiousCase />} />
-          <Route path="/projects/gramture" element={<GramtureCase />} />
-          <Route path="/projects/testonology" element={<TestnologyCase />} />
-          <Route path="/projects/crave-curve" element={<CraveCurveCase />} />
-          <Route path="/projects/pos-system" element={<CodeNexusPOSCase />} />
-          <Route path="/projects/hospital-system" element={<HospitalManagementCase />} />
+
+          {/* Case Studies */}
+          <Route path="/case-study/testnology" element={<TestnologyCase />} />
+          <Route path="/case-study/ambitious-pk" element={<AmbitiousCaseStudy />} />
+          <Route path="/case-study/unification-tibbi" element={<UnificationTibbiCaseStudy />} />
+
+          {/* Service Pages */}
+          <Route path="/services/mobile-app" element={<MobileAppService />} />
+          <Route path="/services/web-development" element={<WebDevService />} />
+          <Route path="/services/iot-solutions" element={<IoTService />} />
+          <Route path="/services/saas-development" element={<SaaSService />} />
+          <Route path="/services/devops" element={<DevOpsService />} />
+          <Route path="/services/agentic-ai" element={<AgenticAIService />} />
+          <Route path="/services/uiux-design" element={<UIUXService />} />
+          <Route path="/services/digital-marketing" element={<DigitalMarketingService />} />
         </Routes>
+
+        {/* Global Components */}
+        <ChatAgent />
       </Router>
     </FirebaseProvider>
   );
 };
 
 export default App;
+

@@ -1,264 +1,500 @@
-/* About Section Styles */
+/* ============================================
+   ABOUT SECTION - White & Sky Blue Theme
+   Hero-matched visuals & Solar System Team
+   ============================================ */
+
 .about-section {
   position: relative;
-  background-color: #050816;
-  padding: 0 0 100px 0; /* Removed top padding to merge with Hero */
-  margin-top: -2px; /* Slight negative margin to ensure no hairline gap */
-  overflow: hidden;
+  padding: 60px 0;
+  background: #ffffff;
+  overflow-x: hidden !important;
+  font-family: 'Inter', sans-serif;
+
+  * {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
 }
 
+/* Background Grids - Subtle */
 .about-bg-effects {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+  inset: 0;
   pointer-events: none;
 }
 
 .grid-lines {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(62, 234, 191, 0.03) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(62, 234, 191, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(14, 165, 233, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
 }
 
-.glow-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.15;
-  animation: float 10s infinite ease-in-out;
+/* Typography & Colors */
+.text-dark {
+  color: #0f172a !important;
 }
 
-.orb-1 {
-  width: 500px;
-  height: 500px;
-  background: #3eeabf;
-  top: 0%;
-  left: -10%;
+.text-muted {
+  color: #64748b !important;
 }
 
-.orb-2 {
-  width: 600px;
-  height: 600px;
-  background: #6A5ACD;
-  bottom: 0%;
-  right: -10%;
-  animation-delay: -5s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-30px) scale(1.05); }
+.text-sky {
+  color: #0ea5e9 !important;
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #3eeabf 0%, #6A5ACD 100%);
+  background: linear-gradient(135deg, #0284c7, #0ea5e9, #38bdf8);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-teal { color: #3eeabf !important; }
-.text-gray { color: #a0a0b0 !important; }
-.letter-spacing-1 { letter-spacing: 1px; }
-
 .divider {
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg, #3eeabf, #6A5ACD);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
   border-radius: 2px;
-  margin-top: 1rem;
+  margin-top: 12px;
 }
 
-/* --- Leader Card Styles --- */
+.letter-spacing-2 {
+  letter-spacing: 2px;
+}
+
+.letter-spacing-1 {
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   LEADER CARDS (Compact & Minimal)
+   ============================================ */
 .leader-card {
-  perspective: 1000px;
-}
-
-.leader-content {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #ffffff;
   border-radius: 20px;
   padding: 30px;
-  height: 100%;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 20px -5px rgba(148, 163, 184, 0.1);
   transition: all 0.3s ease;
+  height: 100%;
 }
 
-.leader-card:hover .leader-content {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(62, 234, 191, 0.2);
-  transform: translateY(-5px);
-}
-
-/* Fix for text color on hover */
-.leader-card:hover .leader-content h3,
-.leader-card:hover .leader-content p {
-  color: #fff !important;
-}
-.leader-card:hover .leader-content .text-teal {
-  color: #3eeabf !important;
-}
-.leader-card:hover .leader-content .text-gray {
-  color: #e0e0e0 !important; /* Slightly brighter gray on hover */
+.leader-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px -10px rgba(14, 165, 233, 0.1);
+  border-color: #bae6fd;
 }
 
 .img-wrapper-small {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #f0f9ff;
+  box-shadow: 0 4px 10px rgba(14, 165, 233, 0.1);
 }
 
 .leader-img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-.glow-ring {
-  position: absolute;
-  top: -5px; left: -5px; right: -5px; bottom: -5px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  background: linear-gradient(45deg, #3eeabf, transparent, #3eeabf) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  animation: spin 10s linear infinite;
-}
-
-.glow-ring.ring-purple {
-   background: linear-gradient(45deg, #6A5ACD, transparent, #6A5ACD) border-box;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.leader-content p.text-muted {
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: 0;
 }
 
 .social-links-small a {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 1.2rem;
-  margin-right: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #94a3b8;
+  margin-right: 10px;
   transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
 .social-links-small a:hover {
-  color: #3eeabf !important;
+  background: #0ea5e9;
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
-/* --- Team Card Styles --- */
-.team-card-wrapper {
-  perspective: 1000px;
-  height: 100%;
-}
+/* ============================================
+   SOLAR SYSTEM TEAM (Ultra Minimal & Low Height)
+   ============================================ */
 
-.team-card-inner {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  padding: 30px 20px;
-  text-align: center;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.solar-system-container {
   position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 380px;
+  margin: 0 auto;
   overflow: hidden;
-  height: 100%;
+  /* Prevent scrollbars */
 }
 
-.team-card-wrapper:hover .team-card-inner {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(62, 234, 191, 0.3);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-  transform: translateY(-10px);
+/* Center Core - Team Lead */
+.solar-core-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 20;
 }
 
-/* Fix for text color on hover in Team Card */
-.team-card-wrapper:hover .team-card-inner h4 {
-  color: #fff !important;
-}
-.team-card-wrapper:hover .team-card-inner .text-teal {
-  color: #3eeabf !important;
-}
-.team-card-wrapper:hover .team-card-inner .text-gray {
-  color: #e0e0e0 !important;
-}
-
-.team-img-container {
-  width: 130px;
-  height: 130px;
-  margin: 0 auto 20px;
+.solar-core-avatar {
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
+  border: 4px solid #ffffff;
+  box-shadow: 0 0 30px rgba(14, 165, 233, 0.2);
+  /* Reduced glow */
   overflow: hidden;
-  border: 3px solid rgba(62, 234, 191, 0.3);
-  position: relative;
-  transition: all 0.4s ease;
+  margin-bottom: 10px;
+  background: #ffffff;
 }
 
-.team-card-wrapper:hover .team-img-container {
-  border-color: #3eeabf;
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(62, 234, 191, 0.2);
-}
-
-.team-img {
+.solar-core-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.team-details {
-  max-height: 0;
+.core-info .name {
+  display: block;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.core-info .role {
+  display: block;
+  font-size: 0.8rem;
+  color: #0ea5e9;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Orbits - Very Flat Ellipses */
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(14, 165, 233, 0.08);
+  /* Minimal visibility */
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Flattened Sizes */
+.ring-inner {
+  width: 500px;
+  height: 180px;
+}
+
+.ring-outer {
+  width: 900px;
+  height: 320px;
+}
+
+/* Solar System Members */
+.solar-member {
+  position: absolute;
+  z-index: 15;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Minimal Positioning: 2 Left, 2 Right, 1 Below */
+
+/* LEFT SIDE */
+/* Laiba - Inner Ring Left */
+.member-left-inner {
+  margin-left: -230px;
+  margin-top: -30px;
+}
+
+/* Rayyan - Outer Ring Left */
+.member-left-outer {
+  margin-left: -400px;
+  margin-top: 30px;
+}
+
+/* RIGHT SIDE */
+/* Usama - Inner Ring Right */
+.member-right-inner {
+  margin-left: 230px;
+  margin-top: -30px;
+}
+
+/* Hadia - Outer Ring Right */
+.member-right-outer {
+  margin-left: 400px;
+  margin-top: 30px;
+}
+
+/* BOTTOM */
+/* Zubair - Outer Ring Bottom */
+.member-bottom-center {
+  margin-left: 0px;
+  margin-top: 160px;
+}
+
+
+/* Avatar Styling */
+.member-avatar-wrapper {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  /* Very subtle shadow */
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.solar-member:hover .member-avatar-wrapper {
+  transform: scale(1.15);
+  border-color: #0ea5e9;
+  box-shadow: 0 5px 20px rgba(14, 165, 233, 0.2);
+}
+
+.member-avatar-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tooltip - Minimal */
+.member-info-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  background: #ffffff;
+  padding: 5px 12px;
+  border-radius: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f8fafc;
+  text-align: center;
+  white-space: nowrap;
   opacity: 0;
-  transition: all 0.5s ease;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+  z-index: 20;
 }
 
-.team-card-wrapper:hover .team-details {
-  max-height: 200px;
+.solar-member:hover .member-info-tooltip {
   opacity: 1;
-  margin-top: 15px;
+  transform: translateX(-50%) translateY(0);
 }
 
-.separator {
-  width: 40px;
-  height: 2px;
-  background: #3eeabf;
-  margin: 10px auto;
-  border-radius: 2px;
+.member-info-tooltip .name {
+  display: block;
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 0.8rem;
 }
 
-.skills-badges {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
+.member-info-tooltip .role {
+  display: block;
+  font-size: 0.7rem;
+  color: #0ea5e9;
+  font-weight: 600;
 }
 
-.skill-badge {
-  font-size: 0.75rem;
-  background: rgba(62, 234, 191, 0.1);
-  color: #3eeabf;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid rgba(62, 234, 191, 0.2);
+/* Responsive Scaling */
+@media (max-width: 1200px) {
+  .solar-system-container {
+    transform: scale(0.9);
+    transform-origin: center center;
+  }
+}
+
+@media (max-width: 991px) {
+  .solar-system-container {
+    transform: scale(0.75);
+    height: 300px;
+  }
 }
 
 @media (max-width: 768px) {
-  .about-section { padding: 60px 0; }
-  .display-4 { font-size: 2.5rem; }
-  
-  /* Always show details on mobile or adjust interaction */
-  .team-details {
-    max-height: 200px;
-    opacity: 1;
-    margin-top: 15px;
+  .solar-system-container {
+    transform: scale(0.6);
+    height: 250px;
+    margin-top: -20px;
+  }
+
+  .about-section {
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: 576px) {
+
+  /* Mobile About Section */
+  .about-section {
+    padding: 40px 0;
+    overflow-x: hidden !important;
+    position: relative;
+    width: 100%;
+  }
+
+  /* Solar System - Optimized for Mobile Visibility */
+  .solar-system-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 400px !important;
+    /* Increased for better visibility */
+    position: relative !important;
+    transform: scale(0.45) !important;
+    /* Increased from 0.35 for better visibility */
+    transform-origin: center center !important;
+    margin: -20px auto -40px auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: visible !important;
+    /* Changed to visible to show all members */
+  }
+
+  /* Orbit rings */
+  .orbit-ring {
+    display: block !important;
+    opacity: 0.5 !important;
+    /* Slightly visible for reference */
+  }
+
+  /* Team Lead Core */
+  .solar-core-wrapper {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    z-index: 10 !important;
+  }
+
+  .solar-core-avatar {
+    width: 110px !important;
+    height: 110px !important;
+    border-radius: 50%;
+  }
+
+  .solar-core-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .core-info {
+    text-align: center;
+  }
+
+  .core-info .name {
+    font-size: 1rem !important;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .core-info .role {
+    font-size: 0.75rem !important;
+    color: #0ea5e9;
+    font-weight: 700;
+  }
+
+  /* Team Members - Optimized positioning for all 6 members */
+  .solar-member {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    width: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Optimized positions - ensuring all members visible */
+  .member-left-inner {
+    margin-left: -160px !important;
+    /* Brought closer */
+    margin-top: -45px !important;
+  }
+
+  .member-left-outer {
+    margin-left: -250px !important;
+    /* Reduced from -280px */
+    margin-top: 35px !important;
+  }
+
+  .member-right-inner {
+    margin-left: 160px !important;
+    /* Brought closer */
+    margin-top: -45px !important;
+  }
+
+  .member-right-outer {
+    margin-left: 250px !important;
+    /* Reduced from 280px */
+    margin-top: 35px !important;
+  }
+
+  .member-bottom-center {
+    margin-left: 0px !important;
+    margin-top: 170px !important;
+    /* Reduced from 180px */
+  }
+
+  .member-avatar-wrapper {
+    width: 75px !important;
+    height: 75px !important;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+  }
+
+  .member-avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .member-info-tooltip {
+    opacity: 0 !important;
+  }
+
+  .leader-card {
+    margin: 10px 0 !important;
+    padding: 25px 20px !important;
+  }
+
+  .about-section .row.g-4 {
+    gap: 20px !important;
+    padding-bottom: 2rem !important;
   }
 }

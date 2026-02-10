@@ -1,90 +1,261 @@
-$primary-color: #2c2c54;
-$text-color: #ffffff;
-$overlay-color:   rgba(0, 0, 0, 0.7); // Blue color with transparency
+/* ============================================
+   FEEDBACK/TESTIMONIALS SECTION (PREMIUM)
+   ============================================ */
 
-.testimonial-section {
-  background-image: url('../assets/images/feedback.webp'); // Replace with your background image URL
-  background-size: cover;
-  background-attachment: fixed;
-  padding: 100px 0;
-  color: $text-color;
+.feedback-section {
+  padding: 120px 0;
+  background: #ffffff;
   position: relative;
   overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: $overlay-color; // Apply blue overlay
-    z-index: 1;
+/* Glow Effect Background */
+.feedback-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.testimonial-container {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+/* Premium Card (Glassmorphism + 3D feel) */
+.testimonial-card-premium {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 32px;
+  padding: 80px 60px;
+  text-align: center;
+  box-shadow:
+    0 20px 50px -10px rgba(14, 165, 233, 0.1),
+    0 10px 20px -5px rgba(0, 0, 0, 0.02),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* Quote Icon */
+.quote-icon-large {
+  font-size: 3.5rem;
+  color: #e0f2fe;
+  /* Very light sky */
+  margin-bottom: 30px;
+  display: inline-block;
+}
+
+/* Rating Stars */
+.rating-stars {
+  color: #fbbf24;
+  font-size: 1.25rem;
+  gap: 6px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Feedback Text */
+.feedback-text-premium {
+  font-size: 1.6rem;
+  color: #000000 !important;
+  /* Force Black for user request */
+  font-weight: 600;
+  line-height: 1.6;
+  font-family: 'Outfit', sans-serif;
+  margin-bottom: 10px;
+}
+
+/* Client Footer */
+.client-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: left;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 30px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.avatar-premium {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 5px 15px rgba(14, 165, 233, 0.2);
+}
+
+.client-info h4.name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.client-info .role {
+  display: block;
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.client-info .project {
+  display: block;
+  font-size: 0.8rem;
+  color: #0ea5e9;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+.nav-btn:hover {
+  background: #0ea5e9;
+  color: #ffffff;
+  border-color: #0ea5e9;
+  box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav-btn.prev {
+  left: -80px;
+}
+
+.nav-btn.next {
+  right: -80px;
+}
+
+/* Dots */
+.dots-premium {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.dot-p {
+  background: transparent;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.dot-p .dot-fill {
+  width: 8px;
+  height: 8px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dot-p:hover .dot-fill {
+  background: #7dd3fc;
+}
+
+.dot-p.active .dot-fill {
+  width: 30px;
+  /* Elongated pill */
+  background: #0ea5e9;
+  border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .nav-btn {
+    top: auto;
+    bottom: -80px;
+    transform: none;
   }
 
-  .container {
-    position: relative;
-    z-index: 2; // Ensure content is above the overlay
+  .nav-btn.prev {
+    left: 30%;
   }
 
-  .testimonial-carousel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    position: relative;
-    overflow: hidden;
-
-    .testimonial-item {
-      flex: 0 0 100%;
-      max-width: 100%;
-      transition: transform 0.5s ease;
-      text-align: center;
-      opacity: 0;
-      transform: scale(0.8);
-      &.active {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      i {
-        color: $text-color;
-        margin-bottom: 20px;
-      }
-
-      h3 {
-        font-weight: bold;
-        margin-top: 15px;
-      }
-
-      p {
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto 20px;
-      }
-    }
+  .nav-btn.next {
+    right: 30%;
   }
 
-  .arrows {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
+  .dots-premium {
+    margin-top: 100px !important;
+  }
+}
 
-    .prev, .next {
-      pointer-events: all;
-      font-size: 2rem;
-      cursor: pointer;
-      color: $text-color;
-      transition: color 0.3s ease;
+@media (max-width: 768px) {
+  .feedback-section {
+    padding: 80px 0;
+  }
 
-      &:hover {
-        color: lighten($primary-color, 10%);
-      }
-    }
+  .testimonial-card-premium {
+    padding: 50px 30px;
+    border-radius: 24px;
+    margin: 0 15px;
+  }
+
+  .quote-icon-large {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .feedback-text-premium {
+    font-size: 1.25rem;
+  }
+
+  .client-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .nav-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+    bottom: -70px;
+  }
+
+  .dots-premium {
+    margin-top: 90px !important;
   }
 }

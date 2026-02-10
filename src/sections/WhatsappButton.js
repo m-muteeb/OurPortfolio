@@ -7,15 +7,20 @@ const WhatsAppFloatButton = () => {
   const buttonStyle = {
     position: 'fixed',
     bottom: '100px',
-    right: '20px',
+    right: '28px',
     backgroundColor: '#25d366',
     color: 'white',
     borderRadius: '50%',
-    padding: '16px',
-    zIndex: 1000,
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+    padding: '14px',
+    zIndex: 9997,
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
     transition: 'transform 0.3s ease-in-out',
     textAlign: 'center',
+    width: '52px',
+    height: '52px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
   const iconStyle = {
@@ -31,7 +36,7 @@ const WhatsAppFloatButton = () => {
 
   return (
     <a
-      href="https://wa.me/923096829046"
+      href="https://wa.me/923093885154"
       target="_blank"
       rel="noopener noreferrer"
       style={{ ...buttonStyle, ...(isHovered ? hoverStyle : {}) }}

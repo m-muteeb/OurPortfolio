@@ -1,22 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../scss/_about_new.scss"; // Import new SCSS
+import "../scss/_about_new.scss";
 
 // Importing images
 import muteeb from '../assets/images/muteeb2 (1).png';
 import usama from '../assets/images/us.jpg.png';
 import rayyan from '../assets/images/ra.png';
 import hadia from '../assets/images/ha.png';
-import abdulrehman from '../assets/images/abdulrehman.jpg';
 import laiba from '../assets/images/laibanew.png';
 import tauseef from '../assets/images/tauseefnew (2).png';
 import zeeshan from '../assets/images/zeeshan2.png';
 import zubair from '../assets/images/zubair_new.png';
 
-
-// --- 3D Tilt Card Component ---
+// --- 3D Tilt Card Component for Leaders ---
 const TiltCard = ({ children, className }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -24,8 +22,8 @@ const TiltCard = ({ children, className }) => {
   const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
   const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
 
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["5deg", "-5deg"]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-5deg", "5deg"]);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -61,98 +59,50 @@ const TiltCard = ({ children, className }) => {
 };
 
 const About = () => {
-  const teamMembers = [
-    {
-      name: "Muteeb Ramzan",
-      role: "Founder & CEO",
-      img: muteeb,
-      desc: "Ai Driven Software Engineer leading the innovation",
-      skills: ["Node.js", "Python", "SQL"]
-    },
-    {
-      name: "Mr. Usama",
-      role: "Frontend Developer",
-      img: usama,
-      desc: "Crafting beautiful and responsive user interfaces.",
-      skills: ["React", "Vue", "CSS3"]
-    },
-    {
-      name: "Mr. Tauseef Haider",
-      role: "Team Lead",
-      img: tauseef,
-      desc: "Bridging the gap between business goals and tech.",
-      skills: ["Agile", "Scrum", "Strategy"]
-    },
-    {
-      name: "Mr. Hafiz Zubair",
-      role: "Security Analyst",
-      img: zubair,
-      desc: "Identifying threats and vulnerabilities to protect and strengthen systems.",
-      skills: ["Risk Assessment", "Threat Analysis", "Network Security"]
-    },
-    {
-      name: "Mr. Rayyan",
-      role: "Full Stack Developer",
-      img: rayyan,
-      desc: "Building end-to-end solutions with modern stacks.",
-      skills: ["MERN", "Next.js", "AWS"]
-    },
-    {
-      name: "Hadia Ajmal",
-      role: "Graphic Designer",
-      img: hadia,
-      desc: "Visual storytelling through creative design.",
-      skills: ["Figma", "Adobe XD", "Illustrator"]
-    },
-    {
-      name: "Laiba Sarwar",
-      role: "Business Developer & HR Manager",
-      img: laiba,
-      desc: "Driving business growth through client relationships and strategy.",
-      skills: ["Sales", "HR", "Analytics"]
-    },
+  // Team Members Configuration
+  // Tauseef is the Center Core
+  const teamLead = { name: "Tauseef Haider", role: "Team Lead", img: tauseef };
+
+  // Orbiting Members
+  const orbitingMembers = [
+    // Left Side
+    { name: "Laiba Sarwar", role: "Business & HR", img: laiba, id: "left-inner" },
+    { name: "Rayyan", role: "Full Stack", img: rayyan, id: "left-outer" },
+
+    // Right Side
+    { name: "Usama", role: "Frontend", img: usama, id: "right-inner" },
+    { name: "Hadia Ajmal", role: "Designer", img: hadia, id: "right-outer" },
+
+    // Bottom Center
+    { name: "Hafiz Zubair", role: "Security", img: zubair, id: "bottom-center" },
   ];
 
   // Animation Variants
   const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const floatAnimation = {
-    animate: {
-      y: [0, -10, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   return (
     <section id="About" className="about-section">
       <div className="about-bg-effects">
-        <div className="glow-orb orb-1"></div>
-        <div className="glow-orb orb-2"></div>
         <div className="grid-lines"></div>
       </div>
 
       <Container className="position-relative z-2">
 
+        {/* Section Header */}
         <div className="section-header text-center mb-5 pt-5">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-uppercase text-sky fw-bold letter-spacing-2 mb-2"
+          >
+            Who We Are
+          </motion.p>
           <motion.h2
-            className="display-4 fw-bold text-white"
+            className="display-4 fw-bold text-dark"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -163,34 +113,29 @@ const About = () => {
           <div className="divider mx-auto"></div>
         </div>
 
-        {/* --- Merged Founder & Advisor Section --- */}
+        {/* --- Leaders Section (Cards) --- */}
         <Row className="g-4 justify-content-center mb-5 pb-5">
-          {/* Founder */}
+          {/* CEO */}
           <Col lg={6}>
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true }}
               variants={fadeInUp}
               className="h-100"
             >
               <TiltCard className="leader-card h-100">
                 <div className="leader-content">
                   <div className="leader-header d-flex align-items-center gap-4 mb-4">
-                    <motion.div
-                      className="img-wrapper-small"
-                      variants={floatAnimation}
-                      animate="animate"
-                    >
-                      <img src={muteeb} alt="M. Muteeb Ramzan" className="leader-img" />
-                      <div className="glow-ring"></div>
-                    </motion.div>
+                    <div className="img-wrapper-small">
+                      <img src={muteeb} alt="Muteeb Ramzan" className="leader-img" loading="lazy" />
+                    </div>
                     <div>
-                      <h3 className="h3 text-white fw-bold mb-1">M. Muteeb Ramzan</h3>
-                      <p className="text-teal mb-0 text-uppercase small letter-spacing-1">Founder & CEO</p>
+                      <h3 className="h3 text-dark fw-bold mb-1">Muteeb Ramzan</h3>
+                      <p className="text-sky mb-0 text-uppercase small letter-spacing-1 fw-bold">Founder & CEO</p>
                     </div>
                   </div>
-                  <p className="text-gray">
+                  <p className="text-muted">
                     "My mission is to lead a team that builds scalable and meaningful software solutions. Whether it's a startup idea or a large-scale enterprise app, we put passion and precision into everything we do."
                   </p>
                   <div className="social-links-small mt-3">
@@ -207,27 +152,22 @@ const About = () => {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true }}
               variants={fadeInUp}
               className="h-100"
             >
               <TiltCard className="leader-card h-100">
                 <div className="leader-content">
                   <div className="leader-header d-flex align-items-center gap-4 mb-4">
-                    <motion.div
-                      className="img-wrapper-small"
-                      variants={floatAnimation}
-                      animate="animate"
-                    >
-                      <img src={zeeshan} alt="Dr. Muhammad Zeeshan Asif" className="leader-img" />
-                      <div className="glow-ring ring-purple"></div>
-                    </motion.div>
+                    <div className="img-wrapper-small">
+                      <img src={zeeshan} alt="Dr. Zeeshan" className="leader-img" loading="lazy" />
+                    </div>
                     <div>
-                      <h3 className="h3 text-white fw-bold mb-1">Dr. M. Zeeshan Asif</h3>
-                      <p className="text-teal mb-0 text-uppercase small letter-spacing-1">Chief Advisor | PhD NUST</p>
+                      <h3 className="h3 text-dark fw-bold mb-1">Dr. M. Zeeshan Asif</h3>
+                      <p className="text-sky mb-0 text-uppercase small letter-spacing-1 fw-bold">Chief Advisor</p>
                     </div>
                   </div>
-                  <p className="text-gray">
+                  <p className="text-muted">
                     "Innovation thrives at the intersection of academia and industry. My goal is to bridge this gap, guiding the talented team at Code Nexus with strategic insights rooted in deep technical knowledge."
                   </p>
                   <div className="social-links-small mt-3">
@@ -240,55 +180,49 @@ const About = () => {
           </Col>
         </Row>
 
-        {/* --- Team Section --- */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={staggerContainer}
-          className="mt-5"
-        >
+        {/* --- Team Solar System Section --- */}
+        <div className="team-solar-wrapper mt-5 pt-4">
           <div className="section-header text-center mb-5">
-            <h2 className="display-4 fw-bold text-white">
-              Meet The <span className="text-gradient">Experts</span>
+            <h2 className="display-4 fw-bold text-dark">
+              Our <span className="text-gradient">Team</span>
             </h2>
-            <p className="text-gray">Our certified team delivering smart solutions</p>
+            <p className="text-muted">Experts powering your digital transformation</p>
             <div className="divider mx-auto"></div>
           </div>
 
-          <Row className="g-4 justify-content-center">
-            {teamMembers.map((member, index) => (
-              <Col key={index} md={6} lg={4}>
-                <motion.div variants={fadeInUp}>
-                  <TiltCard className="team-card-wrapper">
-                    <div className="team-card-inner">
-                      <div className="team-img-container">
-                        <img src={member.img} alt={member.name} className="team-img" />
-                        <div className="team-overlay"></div>
-                      </div>
+          <div className="solar-system-container">
+            {/* Center Core: Team Lead */}
+            <div className="solar-core-wrapper">
+              <div className="solar-core-avatar">
+                <img src={teamLead.img} alt={teamLead.name} loading="lazy" />
+              </div>
+              <div className="core-info">
+                <span className="name">{teamLead.name}</span>
+                <span className="role">{teamLead.role}</span>
+              </div>
+            </div>
 
-                      <div className="team-content">
-                        <h4 className="text-white fw-bold mb-1">{member.name}</h4>
-                        <p className="text-teal mb-2">{member.role}</p>
+            {/* Orbital Rings */}
+            <div className="orbit-ring ring-inner"></div>
+            <div className="orbit-ring ring-outer"></div>
 
-                        {/* Expanding Details */}
-                        <div className="team-details">
-                          <div className="separator"></div>
-                          <p className="small text-gray mb-3">{member.desc}</p>
-                          <div className="skills-badges">
-                            {member.skills.map((skill, i) => (
-                              <span key={i} className="skill-badge">{skill}</span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </TiltCard>
-                </motion.div>
-              </Col>
+            {/* Orbiting Members */}
+            {orbitingMembers.map((member, index) => (
+              <div
+                key={index}
+                className={`solar-member member-${member.id}`}
+              >
+                <div className="member-avatar-wrapper">
+                  <img src={member.img} alt={member.name} loading="lazy" />
+                </div>
+                <div className="member-info-tooltip">
+                  <span className="name">{member.name}</span>
+                  <span className="role">{member.role}</span>
+                </div>
+              </div>
             ))}
-          </Row>
-        </motion.div>
+          </div>
+        </div>
 
       </Container>
     </section>
